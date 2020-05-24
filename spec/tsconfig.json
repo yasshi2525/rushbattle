@@ -1,0 +1,17 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "rootDir": ".",
+    "baseUrl": "../src",
+    "outDir": "../spec_script",
+    "types": ["node", "jest"],
+    "tsBuildInfoFile": "../tmp/test.tsBuildInfoFile"
+  },
+  "include": ["./**/*.ts"],
+  "extends": "../tsconfig-base",
+  "references": [
+    {
+      "path": "../src"
+    }
+  ]
+}

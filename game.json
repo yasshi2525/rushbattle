@@ -4,26 +4,96 @@
 	"fps": 30,
 	"main": "./script/_bootstrap.js",
 	"assets": {
+		"main": {
+			"type": "script",
+			"path": "script/main.js",
+			"global": true
+		},
+		"parameterObject": {
+			"type": "script",
+			"path": "script/parameterObject.js",
+			"global": true
+		},
+		"_bootstrap": {
+			"type": "script",
+			"path": "script/_bootstrap.js",
+			"global": true
+		},
+		"adapter": {
+			"type": "script",
+			"path": "script/adapters/adapter.js",
+			"global": true
+		},
+		"akashic": {
+			"type": "script",
+			"path": "script/adapters/akashic.js",
+			"global": true
+		},
+		"game": {
+			"type": "script",
+			"path": "script/models/game.js",
+			"global": true
+		},
 		"player": {
-			"type": "image",
-			"width": 32,
-			"height": 32,
-			"path": "image/player.png"
+			"type": "script",
+			"path": "script/models/player.js",
+			"global": true
 		},
-		"shot": {
-			"type": "image",
-			"width": 16,
-			"height": 16,
-			"path": "image/shot.png"
+		"team": {
+			"type": "script",
+			"path": "script/models/team.js",
+			"global": true
 		},
-		"se": {
-			"type": "audio",
-			"path": "audio/se",
-			"systemId": "sound",
-			"duration": 250
+		"event_mapper": {
+			"type": "script",
+			"path": "script/events/event_mapper.js",
+			"global": true
+		},
+		"join": {
+			"type": "script",
+			"path": "script/events/join.js",
+			"global": true
+		},
+		"message": {
+			"type": "script",
+			"path": "script/events/message.js",
+			"global": true
+		},
+		"rail_extend": {
+			"type": "script",
+			"path": "script/events/rail_extend.js",
+			"global": true
+		},
+		"model_mapper": {
+			"type": "script",
+			"path": "script/models/model_mapper.js",
+			"global": true
+		},
+		"rail_node": {
+			"type": "script",
+			"path": "script/models/rail_node.js",
+			"global": true
+		},
+		"resolver": {
+			"type": "script",
+			"path": "script/models/resolver.js",
+			"global": true
+		},
+		"scene_mapper": {
+			"type": "script",
+			"path": "script/scenes/scene_mapper.js",
+			"global": true
+		},
+		"start": {
+			"type": "script",
+			"path": "script/scenes/start.js",
+			"global": true
 		}
 	},
-	"moduleMainScripts": {},
+	"moduleMainScripts": {
+		"@akashic/akashic-engine": "node_modules/@akashic/akashic-engine/index.js",
+		"@yasshi2525/rushmini": "node_modules/@yasshi2525/rushmini/lib/index.js"
+	},
 	"environment": {
 		"sandbox-runtime": "2",
 		"niconico": {
@@ -31,5 +101,93 @@
 				"ranking"
 			]
 		}
-	}
+	},
+	"globalScripts": [
+		"node_modules/@akashic/akashic-engine/index.js",
+		"node_modules/@akashic/akashic-engine/lib/main.node.js",
+		"node_modules/@yasshi2525/rushmini/lib/entities/bonus.js",
+		"node_modules/@yasshi2525/rushmini/lib/entities/bonus_badge.js",
+		"node_modules/@yasshi2525/rushmini/lib/entities/bonus_branch.js",
+		"node_modules/@yasshi2525/rushmini/lib/entities/bonus_component.js",
+		"node_modules/@yasshi2525/rushmini/lib/entities/bonus_residence.js",
+		"node_modules/@yasshi2525/rushmini/lib/entities/bonus_station.js",
+		"node_modules/@yasshi2525/rushmini/lib/entities/bonus_train.js",
+		"node_modules/@yasshi2525/rushmini/lib/entities/bonus_undo.js",
+		"node_modules/@yasshi2525/rushmini/lib/entities/branch_builder.js",
+		"node_modules/@yasshi2525/rushmini/lib/entities/build_guide.js",
+		"node_modules/@yasshi2525/rushmini/lib/entities/builder.js",
+		"node_modules/@yasshi2525/rushmini/lib/entities/connector.js",
+		"node_modules/@yasshi2525/rushmini/lib/entities/creator.js",
+		"node_modules/@yasshi2525/rushmini/lib/entities/factory.js",
+		"node_modules/@yasshi2525/rushmini/lib/entities/font.js",
+		"node_modules/@yasshi2525/rushmini/lib/entities/frame.js",
+		"node_modules/@yasshi2525/rushmini/lib/entities/help.js",
+		"node_modules/@yasshi2525/rushmini/lib/entities/human_despawner.js",
+		"node_modules/@yasshi2525/rushmini/lib/entities/human_view.js",
+		"node_modules/@yasshi2525/rushmini/lib/entities/instruction_guide.js",
+		"node_modules/@yasshi2525/rushmini/lib/entities/loader.js",
+		"node_modules/@yasshi2525/rushmini/lib/entities/logo.js",
+		"node_modules/@yasshi2525/rushmini/lib/entities/model_viewer.js",
+		"node_modules/@yasshi2525/rushmini/lib/entities/point_view.js",
+		"node_modules/@yasshi2525/rushmini/lib/entities/rail_edge_view.js",
+		"node_modules/@yasshi2525/rushmini/lib/entities/rectangle.js",
+		"node_modules/@yasshi2525/rushmini/lib/entities/replay.js",
+		"node_modules/@yasshi2525/rushmini/lib/entities/residence_builder.js",
+		"node_modules/@yasshi2525/rushmini/lib/entities/score.js",
+		"node_modules/@yasshi2525/rushmini/lib/entities/score_view.js",
+		"node_modules/@yasshi2525/rushmini/lib/entities/shadow.js",
+		"node_modules/@yasshi2525/rushmini/lib/entities/speaker.js",
+		"node_modules/@yasshi2525/rushmini/lib/entities/sprite.js",
+		"node_modules/@yasshi2525/rushmini/lib/entities/start.js",
+		"node_modules/@yasshi2525/rushmini/lib/entities/statics_view.js",
+		"node_modules/@yasshi2525/rushmini/lib/entities/station_builder.js",
+		"node_modules/@yasshi2525/rushmini/lib/entities/station_view.js",
+		"node_modules/@yasshi2525/rushmini/lib/entities/tick.js",
+		"node_modules/@yasshi2525/rushmini/lib/entities/train_view.js",
+		"node_modules/@yasshi2525/rushmini/lib/entities/waiter.js",
+		"node_modules/@yasshi2525/rushmini/lib/index.js",
+		"node_modules/@yasshi2525/rushmini/lib/models/action.js",
+		"node_modules/@yasshi2525/rushmini/lib/models/city_resource.js",
+		"node_modules/@yasshi2525/rushmini/lib/models/company.js",
+		"node_modules/@yasshi2525/rushmini/lib/models/dept_task.js",
+		"node_modules/@yasshi2525/rushmini/lib/models/edge_task.js",
+		"node_modules/@yasshi2525/rushmini/lib/models/gate.js",
+		"node_modules/@yasshi2525/rushmini/lib/models/human.js",
+		"node_modules/@yasshi2525/rushmini/lib/models/line_task.js",
+		"node_modules/@yasshi2525/rushmini/lib/models/line_task_utils.js",
+		"node_modules/@yasshi2525/rushmini/lib/models/listener.js",
+		"node_modules/@yasshi2525/rushmini/lib/models/move_task.js",
+		"node_modules/@yasshi2525/rushmini/lib/models/path_finder.js",
+		"node_modules/@yasshi2525/rushmini/lib/models/platform.js",
+		"node_modules/@yasshi2525/rushmini/lib/models/point.js",
+		"node_modules/@yasshi2525/rushmini/lib/models/pointable.js",
+		"node_modules/@yasshi2525/rushmini/lib/models/rail_edge.js",
+		"node_modules/@yasshi2525/rushmini/lib/models/rail_line.js",
+		"node_modules/@yasshi2525/rushmini/lib/models/rail_node.js",
+		"node_modules/@yasshi2525/rushmini/lib/models/residence.js",
+		"node_modules/@yasshi2525/rushmini/lib/models/routable.js",
+		"node_modules/@yasshi2525/rushmini/lib/models/station.js",
+		"node_modules/@yasshi2525/rushmini/lib/models/stay_task.js",
+		"node_modules/@yasshi2525/rushmini/lib/models/train.js",
+		"node_modules/@yasshi2525/rushmini/lib/models/train_executor.js",
+		"node_modules/@yasshi2525/rushmini/lib/models/train_task.js",
+		"node_modules/@yasshi2525/rushmini/lib/models/user_resource.js",
+		"node_modules/@yasshi2525/rushmini/lib/scenes/ending.js",
+		"node_modules/@yasshi2525/rushmini/lib/scenes/game.js",
+		"node_modules/@yasshi2525/rushmini/lib/scenes/instruction.js",
+		"node_modules/@yasshi2525/rushmini/lib/scenes/title.js",
+		"node_modules/@yasshi2525/rushmini/lib/utils/common.js",
+		"node_modules/@yasshi2525/rushmini/lib/utils/measure.js",
+		"node_modules/@yasshi2525/rushmini/lib/utils/random.js",
+		"node_modules/@yasshi2525/rushmini/lib/utils/route_finder.js",
+		"node_modules/@yasshi2525/rushmini/lib/utils/scene.js",
+		"node_modules/@yasshi2525/rushmini/lib/utils/scorer.js",
+		"node_modules/@yasshi2525/rushmini/lib/utils/statics.js",
+		"node_modules/@yasshi2525/rushmini/lib/utils/stepper.js",
+		"node_modules/@yasshi2525/rushmini/lib/utils/ticker.js",
+		"node_modules/@yasshi2525/rushmini/lib/utils/track_finder.js",
+		"node_modules/@yasshi2525/rushmini/lib/utils/transport_finder.js",
+		"node_modules/@yasshi2525/rushmini/lib/utils/tweet.js",
+		"node_modules/@yasshi2525/rushmini/lib/utils/viewer.js"
+	]
 }

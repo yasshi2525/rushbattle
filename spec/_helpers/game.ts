@@ -7,4 +7,4 @@ export class Game extends OrgGame {
   }
 }
 
-export const createGame = (): Game => new Game(new TestAdapter());
+export const createGame = (): Game => new Game({ adapter: new TestAdapter() });

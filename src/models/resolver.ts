@@ -2,11 +2,10 @@ import { EventType, find, modelListener, remove } from "@yasshi2525/rushmini";
 
 import { resourceTypes } from "./model_mapper";
 
-export type UID = { key: string; id: number | string };
 export type Storage = { [index: string]: Reflectable[] };
 
 export interface Reflectable {
-  uid: UID;
+  id: number;
 }
 
 class Resolver {
@@ -23,10 +22,7 @@ class Resolver {
   }
 
   public find<T>(key: new (...args: unknown[]) => T, id: number | string): T {
-    return (find(
-      this.storage[key.name],
-      (e) => e.uid.id === id
-    ) as unknown) as T;
+    return (find(this.storage[key.name], (e) => e.id === id) as unknown) as T;
   }
 
   protected add(obj: Reflectable): void {

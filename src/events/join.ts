@@ -2,10 +2,13 @@ import { BaseMessage, Message, MessageEnvelop } from "./message";
 
 import { MessageType } from "./event_mapper";
 
-export type JoinMessageOption = { team: string; user: string };
+export type JoinMessageOption = {
+  team: number;
+  user: string;
+};
 
 export class JoinMessage extends BaseMessage implements Message {
-  public readonly team: string;
+  public readonly team: number;
   public readonly user: string;
   constructor(opts: JoinMessageOption) {
     super({ sender: undefined, key: MessageType.JOIN });
@@ -14,14 +17,14 @@ export class JoinMessage extends BaseMessage implements Message {
   }
   public envelop(): MessageEnvelop {
     const msg = super.envelop();
-    msg.user = this.user;
     msg.team = this.team;
+    msg.user = this.user;
     return msg;
   }
-  static decode(msg: MessageEnvelop): JoinMessage {
+  public static decode(msg: MessageEnvelop): JoinMessage {
     return new JoinMessage({
+      team: msg.team as number,
       user: msg.user as string,
-      team: msg.team as string,
     });
   }
 }

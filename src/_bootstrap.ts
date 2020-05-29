@@ -6,9 +6,9 @@ import { main } from "./main";
 declare const window: RPGAtsumaruWindow;
 
 export = (originalParam: g.GameMainParameterObject) => {
-  const param: any = {} as GameMainParameterObject;
+  const param: { [index: string]: unknown } = {};
   Object.keys(originalParam).forEach((key) => {
-    param[key] = (originalParam as any)[key];
+    param[key] = (originalParam as { [index: string]: unknown })[key];
   });
   // セッションパラメーター
   param.sessionParameter = {};
@@ -33,7 +33,7 @@ export = (originalParam: g.GameMainParameterObject) => {
         );
       }
       g.game.popScene();
-      main(param);
+      main(/*param*/);
     }
   });
   scene.loaded.add(() => {
@@ -43,7 +43,7 @@ export = (originalParam: g.GameMainParameterObject) => {
       // 待ち時間を超えた場合はゲームを開始します
       if (currentTickCount > limitTickToWait) {
         g.game.popScene();
-        main(param);
+        main(/*param*/);
       }
     });
   });

@@ -1,12 +1,15 @@
-import { EventType, Point, modelListener } from "@yasshi2525/rushmini";
 import { Game, createGame } from "../_helpers/game";
 
 import { JoinMessage } from "events/join";
+import { Point } from "@yasshi2525/rushmini";
 
 describe("team", () => {
   let game: Game;
   beforeEach(() => {
     game = createGame();
+  });
+  afterEach(() => {
+    game.destroy();
   });
 
   it("create", () => {
@@ -31,7 +34,7 @@ describe("team", () => {
   it("request join", () => {
     const team = game.createTeam("testTeam");
     expect(team.members.length).toEqual(0);
-    game.send(new JoinMessage({ team: "testTeam", user: "testUser" }));
+    game.send(new JoinMessage({ team: team.id, user: "testUser" }));
     expect(team.members.length).toEqual(0);
     game.tick();
     expect(team.members.length).toEqual(1);

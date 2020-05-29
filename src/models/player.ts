@@ -1,23 +1,24 @@
 import { EventType, modelListener } from "@yasshi2525/rushmini";
-import { Reflectable, UID } from "./resolver";
 
-import { ReflectableType } from "./model_mapper";
+import { Reflectable } from "./resolver";
 import Team from "./team";
 
 export type PlayerOption = { name: string; team: Team };
 
 class Player implements Reflectable {
+  public static COUNT = 1;
   public readonly team: Team;
   public readonly name: string;
-  protected readonly _uid: UID;
+  protected readonly _id: number;
+
   constructor(opts: PlayerOption) {
     this.team = opts.team;
     this.name = opts.name;
-    this._uid = { key: ReflectableType.Player, id: this.name };
+    this._id = Player.COUNT++;
     modelListener.add(EventType.CREATED, this);
   }
-  get uid(): UID {
-    return this._uid;
+  get id(): number {
+    return this._id;
   }
 }
 

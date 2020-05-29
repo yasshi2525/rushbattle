@@ -20,7 +20,7 @@ jobs:
       - name: test
         uses: paambaati/codeclimate-action@v2.5.6
         env:
-          CC_TEST_REPORTER_ID: d1c2ece2a57c6a37a2671aea685202dad9515a5e21ed7237fdfef6980aa12d99
+          CC_TEST_REPORTER_ID: c55cd541a6ba15595943dfd2057847d4d38c55c24ccdf7873468271710877d7d
         with:
           coverageLocations: ./coverage/lcov.info:lcov
           coverageCommand: npm test

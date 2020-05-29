@@ -88,6 +88,71 @@
 			"type": "script",
 			"path": "script/scenes/start.js",
 			"global": true
+		},
+		"action": {
+			"type": "script",
+			"path": "script/models/action.js",
+			"global": true
+		},
+		"company": {
+			"type": "script",
+			"path": "script/models/company.js",
+			"global": true
+		},
+		"dept_task": {
+			"type": "script",
+			"path": "script/models/dept_task.js",
+			"global": true
+		},
+		"edge_task": {
+			"type": "script",
+			"path": "script/models/edge_task.js",
+			"global": true
+		},
+		"gate": {
+			"type": "script",
+			"path": "script/models/gate.js",
+			"global": true
+		},
+		"human": {
+			"type": "script",
+			"path": "script/models/human.js",
+			"global": true
+		},
+		"line_task_utils": {
+			"type": "script",
+			"path": "script/models/line_task_utils.js",
+			"global": true
+		},
+		"platform": {
+			"type": "script",
+			"path": "script/models/platform.js",
+			"global": true
+		},
+		"rail_edge": {
+			"type": "script",
+			"path": "script/models/rail_edge.js",
+			"global": true
+		},
+		"rail_line": {
+			"type": "script",
+			"path": "script/models/rail_line.js",
+			"global": true
+		},
+		"residence": {
+			"type": "script",
+			"path": "script/models/residence.js",
+			"global": true
+		},
+		"station": {
+			"type": "script",
+			"path": "script/models/station.js",
+			"global": true
+		},
+		"train": {
+			"type": "script",
+			"path": "script/models/train.js",
+			"global": true
 		}
 	},
 	"moduleMainScripts": {

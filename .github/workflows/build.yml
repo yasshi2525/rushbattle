@@ -1,0 +1,45 @@
+name: build
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  test:
+    name: unit test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "14"
+      - run: npm install
+      - run: npm run lint
+      - name: test
+        uses: paambaati/codeclimate-action@v2.5.6
+        env:
+          CC_TEST_REPORTER_ID: d1c2ece2a57c6a37a2671aea685202dad9515a5e21ed7237fdfef6980aa12d99
+        with:
+          coverageLocations: ./coverage/lcov.info:lcov
+          coverageCommand: npm test
+
+  archive:
+    needs: [test]
+    name: archive for niconico
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "14"
+      - run: npm install -g @akashic/akashic-cli @akashic/akashic-sandbox
+      - run: npm install
+      - run: npm run build
+      - run: akashic export html --output ../rushmini-v1.5.1 --atsumaru
+      - name: Upload artifact
+        uses: actions/upload-artifact@v1.0.0
+        with:
+          name: ../rushmini-v1.5.1
+          path: ../rushmini-v1.5.1

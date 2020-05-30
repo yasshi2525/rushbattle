@@ -14,14 +14,13 @@ describe("test", () => {
 
   beforeEach(async () => {
     runner = await createAkashicRunner();
-    expect(g.Scene).not.toBeUndefined();
     game = await createGameWithAkashic({
       runner,
       main: "main",
       sceneMapGenerator: (game) => ({ main: new g.Scene({ game }) }),
     });
     akashic = (game.adapter as AkashicAdapter).game;
-  }, 20000);
+  });
 
   afterEach(() => {
     game.destroy();

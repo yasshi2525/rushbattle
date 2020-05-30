@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const { defaults: tsPreset } = require("ts-jest/presets");
 
 module.exports = {
@@ -5,10 +6,12 @@ module.exports = {
   collectCoverageFrom: ["src/**/*.ts"],
   coverageDirectory: "coverage",
   coverageReporters: ["lcov"],
+  testEnvironment: "./spec/setup.js",
   globals: {
     "ts-jest": {
       tsConfig: "<rootDir>/spec/tsconfig.json",
     },
+    rootDir: __dirname,
   },
   modulePaths: ["<rootDir>/src"],
   rootDir: "./",

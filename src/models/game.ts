@@ -13,12 +13,12 @@ export type GameOption = { adapter: ServiceAdapter };
  * ゲーム全体を管理
  */
 class Game {
-  protected readonly service: ServiceAdapter;
+  public readonly adapter: ServiceAdapter;
   protected readonly resolver: Resolver;
   public readonly teams: Team[] = [];
 
   constructor(opts: GameOption) {
-    this.service = opts.adapter;
+    this.adapter = opts.adapter;
     this.resolver = new Resolver();
 
     modelListener
@@ -37,7 +37,7 @@ class Game {
   }
 
   public send(msg: Message): void {
-    this.service.send(msg.envelop());
+    this.adapter.send(msg.envelop());
   }
 
   public destroy(): void {

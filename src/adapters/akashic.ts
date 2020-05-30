@@ -12,7 +12,9 @@ export type AkashicAdapterOption = {
 
 class AkashicAdapter implements ServiceAdapter {
   public readonly game: g.Game;
-  protected readonly sceneMapper: { [index: string]: g.Scene };
+  protected readonly sceneMapper: {
+    [index: string]: g.Scene;
+  };
   protected watch: g.Scene;
 
   constructor(opts: AkashicAdapterOption) {
@@ -36,6 +38,7 @@ class AkashicAdapter implements ServiceAdapter {
         modelListener.fire(EventType.CREATED);
       }
     });
+    this.game.pushScene(this.watch);
   }
 }
 

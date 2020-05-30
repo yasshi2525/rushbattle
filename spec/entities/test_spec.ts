@@ -21,7 +21,7 @@ describe("test", () => {
       sceneMapGenerator: (game) => ({ main: new g.Scene({ game }) }),
     });
     akashic = (game.adapter as AkashicAdapter).game;
-  });
+  }, 10000);
 
   afterEach(() => {
     game.destroy();

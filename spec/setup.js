@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import JsdomEnvironment from "jest-environment-jsdom";
-import g from "@akashic/akashic-engine";
+/* eslint-disable @typescript-eslint/no-var-requires */
+const JsdomEnvironment = require("jest-environment-jsdom");
+const g = require("@akashic/akashic-engine");
 
 class AkashicEnvironment extends JsdomEnvironment {
   async setup() {
@@ -12,4 +12,4 @@ class AkashicEnvironment extends JsdomEnvironment {
   }
 }
 
-export default AkashicEnvironment;
+module.exports = AkashicEnvironment;

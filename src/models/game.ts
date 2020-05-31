@@ -39,7 +39,7 @@ class Game<T, C, D, M, U, MSG> {
   }
 
   public send(msg: Message): void {
-    this.service.send(msg.envelop());
+    this.adapter.send(msg.envelop());
   }
 
   public destroy(): void {

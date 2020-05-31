@@ -11,8 +11,8 @@ export type AkashicAdapterOption = {
 };
 
 class AkashicAdapter implements ServiceAdapter {
-  protected game: g.Game;
-  protected sceneMapper: { [index: string]: g.Scene };
+  public readonly game: g.Game;
+  protected readonly sceneMapper: { [index: string]: g.Scene };
   protected watch: g.Scene;
 
   constructor(opts: AkashicAdapterOption) {

@@ -13,10 +13,7 @@ export type MessageEnvelop = {
 } & SerializableObject;
 
 export const isMessageEnvelop = (obj: unknown): obj is MessageEnvelop =>
-  obj &&
-  typeof obj == "object" &&
-  "key" in obj &&
-  (typeof "sender" == "number" || typeof "sender" == "undefined");
+  obj && typeof obj == "object" && "key" in obj && "sender" in obj;
 
 export interface Message {
   sender: number;

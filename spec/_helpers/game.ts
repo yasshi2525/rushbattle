@@ -1,13 +1,27 @@
+import HeadlessAdapter from "./adapter";
 import OrgGame from "models/game";
-import TestAdapter from "./adapter";
+import { SimpleContainer } from "./headless_container";
+import { SimpleScene } from "./headless_scene";
 
-export class Game extends OrgGame {
+export class Game extends OrgGame<
+  SimpleScene,
+  SimpleContainer,
+  g.PointDownEvent,
+  g.PointMoveEvent,
+  g.PointUpEvent,
+  g.MessageEvent
+> {
+  public readonly adapter: HeadlessAdapter;
+
   public tick(): void {
-    (this.adapter as TestAdapter).fetch();
+    this.adapter.fetch();
+    this.adapter.shiftSceneIf();
   }
 }
 
-/**
- * Akashic Engineを使わないテストで使用する
- */
-export const createGame = (): Game => new Game({ adapter: new TestAdapter() });
+export const createGame = (): Game => {
+  const adapter = new HeadlessAdapter();
+  const game = new Game({ adapter });
+  adapter.pushScene(adapter.createScene());
+  return game;
+};

@@ -79,16 +79,6 @@
 			"path": "script/models/resolver.js",
 			"global": true
 		},
-		"scene_mapper": {
-			"type": "script",
-			"path": "script/scenes/scene_mapper.js",
-			"global": true
-		},
-		"start": {
-			"type": "script",
-			"path": "script/scenes/start.js",
-			"global": true
-		},
 		"action": {
 			"type": "script",
 			"path": "script/models/action.js",
@@ -153,11 +143,49 @@
 			"type": "script",
 			"path": "script/models/train.js",
 			"global": true
+		},
+		"akashic_container": {
+			"type": "script",
+			"path": "script/adapters/akashic_container.js",
+			"global": true
+		},
+		"akashic_object2D": {
+			"type": "script",
+			"path": "script/adapters/akashic_object2D.js",
+			"global": true
+		},
+		"akashic_rectangle": {
+			"type": "script",
+			"path": "script/adapters/akashic_rectangle.js",
+			"global": true
+		},
+		"akashic_scene": {
+			"type": "script",
+			"path": "script/adapters/akashic_scene.js",
+			"global": true
+		},
+		"akashic_sprite": {
+			"type": "script",
+			"path": "script/adapters/akashic_sprite.js",
+			"global": true
+		},
+		"akashic_text": {
+			"type": "script",
+			"path": "script/adapters/akashic_text.js",
+			"global": true
+		},
+		"akashic_trigger": {
+			"type": "script",
+			"path": "script/adapters/akashic_trigger.js",
+			"global": true
 		}
 	},
 	"moduleMainScripts": {
 		"@akashic/akashic-engine": "node_modules/@akashic/akashic-engine/index.js",
-		"@yasshi2525/rushmini": "node_modules/@yasshi2525/rushmini/lib/index.js"
+		"@yasshi2525/rushmini": "node_modules/@yasshi2525/rushmini/lib/index.js",
+		"nan": "node_modules/nan/include_dirs.js",
+		"path-browserify": "node_modules/path-browserify/index.js",
+		"process": "node_modules/process/index.js"
 	},
 	"environment": {
 		"sandbox-runtime": "2",
@@ -253,6 +281,9 @@
 		"node_modules/@yasshi2525/rushmini/lib/utils/track_finder.js",
 		"node_modules/@yasshi2525/rushmini/lib/utils/transport_finder.js",
 		"node_modules/@yasshi2525/rushmini/lib/utils/tweet.js",
-		"node_modules/@yasshi2525/rushmini/lib/utils/viewer.js"
+		"node_modules/@yasshi2525/rushmini/lib/utils/viewer.js",
+		"node_modules/nan/include_dirs.js",
+		"node_modules/path-browserify/index.js",
+		"node_modules/process/browser.js"
 	]
 }

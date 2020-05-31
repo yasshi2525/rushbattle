@@ -11,11 +11,11 @@ export class Game extends OrgGame<
   g.PointUpEvent,
   g.MessageEvent
 > {
-  protected readonly service: HeadlessAdapter;
+  public readonly adapter: HeadlessAdapter;
 
   public tick(): void {
-    this.service.fetch();
-    this.service.shiftSceneIf();
+    this.adapter.fetch();
+    this.adapter.shiftSceneIf();
   }
 }
 

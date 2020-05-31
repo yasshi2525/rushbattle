@@ -41,13 +41,18 @@ export type CreateGameWithAkashicOption = {
 
 export const createGameWithAkashic = async (
   opts: CreateGameWithAkashicOption
-): Promise<Game> => {
+): Promise<
+  Game<
+    g.Scene,
+    g.E,
+    g.PointDownEvent,
+    g.PointMoveEvent,
+    g.PointUpEvent,
+    g.MessageEvent
+  >
+> => {
   const game = ((await opts.runner.start()) as unknown) as g.Game;
   return new Game({
-    adapter: new AkashicAdapter({
-      game,
-      main: opts.main,
-      sceneMapper: opts.sceneMapGenerator(game),
-    }),
+    adapter: new AkashicAdapter({ game }),
   });
 };

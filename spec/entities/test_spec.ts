@@ -9,7 +9,14 @@ import { RunnerV2 } from "@akashic/headless-driver";
 
 describe("test", () => {
   let runner: RunnerV2;
-  let game: Game;
+  let game: Game<
+    g.Scene,
+    g.E,
+    g.PointDownEvent,
+    g.PointMoveEvent,
+    g.PointUpEvent,
+    g.MessageEvent
+  >;
   let akashic: g.Game;
 
   beforeEach(async () => {

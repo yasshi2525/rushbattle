@@ -60,7 +60,7 @@ class HeadlessAdapter implements HeadlessAdapterType {
   }
 
   public shiftSceneIf(): void {
-    if (this.sceneQueue.length > 0) this.sceneQueue.shift();
+    if (this.sceneQueue.length > 1) this.sceneQueue.shift();
   }
 
   public createContainer(

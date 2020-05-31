@@ -24,7 +24,7 @@ export type AkashicAdapterType = ServiceAdapter<
 export type AkashicAdapterOption = { game: g.Game };
 
 class AkashicAdapter implements AkashicAdapterType {
-  protected game: g.Game;
+  public game: g.Game;
   protected _scene: AkashicScene;
 
   constructor(opts: AkashicAdapterOption) {

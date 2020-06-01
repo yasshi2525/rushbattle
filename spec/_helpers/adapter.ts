@@ -14,14 +14,7 @@ import { MessageEnvelop, isMessageEnvelop } from "events/message";
 import { ServiceAdapter } from "adapters/adapter";
 import { messageDecorder } from "events/event_mapper";
 
-export type HeadlessAdapterType = ServiceAdapter<
-  SimpleScene,
-  SimpleContainer,
-  g.PointDownEvent,
-  g.PointMoveEvent,
-  g.PointUpEvent,
-  g.MessageEvent
->;
+export type HeadlessAdapterType = ServiceAdapter<SimpleScene, SimpleContainer>;
 
 class HeadlessAdapter implements HeadlessAdapterType {
   protected msgQueue: MessageEnvelop[] = [];
@@ -37,8 +30,8 @@ class HeadlessAdapter implements HeadlessAdapterType {
     });
   }
 
-  public get scene(): HeadlessScene {
-    return this.sceneQueue[0];
+  public get scene(): SimpleScene {
+    return this.sceneQueue[0].original;
   }
 
   public pushScene(v: HeadlessScene): void {
@@ -60,7 +53,10 @@ class HeadlessAdapter implements HeadlessAdapterType {
   }
 
   public shiftSceneIf(): void {
-    if (this.sceneQueue.length > 1) this.sceneQueue.shift();
+    if (this.sceneQueue.length > 1) {
+      this.sceneQueue.shift();
+      this.sceneQueue[0].loaded.fire(this.sceneQueue[0].original);
+    }
   }
 
   public createContainer(

@@ -20,21 +20,11 @@ export class SimpleRectangle extends SimpleObject2D {
   }
 }
 
-export type HeadlessRectangleType = Rectangle<
-  SimpleScene,
-  SimpleContainer,
-  g.PointDownEvent,
-  g.PointMoveEvent,
-  g.PointUpEvent
->;
+export type HeadlessRectangleType = Rectangle<SimpleScene, SimpleContainer>;
 
 export type CreateHeadlessRectangleOption = CreateRectangleOption<
   SimpleScene,
-  SimpleContainer,
-  g.PointDownEvent,
-  g.PointMoveEvent,
-  g.PointUpEvent,
-  g.MessageEvent
+  SimpleContainer
 >;
 
 class HeadlessRectangle extends HeadlessObject2D<SimpleRectangle>

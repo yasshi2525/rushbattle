@@ -1,8 +1,13 @@
 import { HeadlessContainerType, SimpleContainer } from "./headless_container";
+import {
+  PointDownEvent,
+  PointMoveEvent,
+  PointUpEvent,
+  Trigger,
+} from "adapters/adapter";
 
 import { SimpleScene } from "./headless_scene";
 import SimpleTrigger from "./simple_trigger";
-import { Trigger } from "adapters/adapter";
 import { remove } from "@yasshi2525/rushmini";
 
 export type CreateSimpleObject2DOption = {
@@ -39,12 +44,13 @@ export abstract class SimpleObject2D {
   public hidden: boolean;
   public opacity: number;
   public touchable: boolean;
-  public readonly pointDown: Trigger<g.PointDownEvent>;
-  public readonly pointMove: Trigger<g.PointMoveEvent>;
-  public readonly pointUp: Trigger<g.PointUpEvent>;
+  public readonly pointDown: Trigger<PointDownEvent<SimpleContainer>>;
+  public readonly pointMove: Trigger<PointMoveEvent<SimpleContainer>>;
+  public readonly pointUp: Trigger<PointUpEvent<SimpleContainer>>;
   public readonly update: Trigger<void>;
 
   constructor(opts: CreateSimpleObject2DOption) {
+    this.scene = opts.scene;
     this.local = opts.local ?? false;
     this.x = opts.x ?? 0;
     this.y = opts.y ?? 0;
@@ -121,14 +127,14 @@ export class HeadlessObject2D<T extends SimpleObject2D> {
     return this._original;
   }
 
-  public get pointDown(): Trigger<g.PointDownEvent> {
+  public get pointDown(): Trigger<PointDownEvent<SimpleContainer>> {
     return this.original.pointDown;
   }
 
-  public get pointMove(): Trigger<g.PointMoveEvent> {
+  public get pointMove(): Trigger<PointMoveEvent<SimpleContainer>> {
     return this._original.pointMove;
   }
-  public get pointUp(): Trigger<g.PointUpEvent> {
+  public get pointUp(): Trigger<PointUpEvent<SimpleContainer>> {
     return this._original.pointUp;
   }
 

@@ -1,16 +1,9 @@
-import { Scene, Trigger } from "./adapter";
+import { MessageEvent, Scene, Trigger } from "./adapter";
 
 import { AkashicContainerType } from "./akashic_container";
 import AkashicTrigger from "./akashic_trigger";
 
-export type AkashicSceneType = Scene<
-  g.Scene,
-  g.E,
-  g.PointDownEvent,
-  g.PointMoveEvent,
-  g.PointUpEvent,
-  g.MessageEvent
->;
+export type AkashicSceneType = Scene<g.Scene, g.E>;
 export type CreateAkashicSceneOption = { game: g.Game };
 
 class AkashicScene implements AkashicSceneType {
@@ -50,7 +43,7 @@ class AkashicScene implements AkashicSceneType {
     return this._update;
   }
 
-  public get message(): Trigger<g.MessageEvent> {
+  public get message(): Trigger<MessageEvent> {
     return this._message;
   }
 }

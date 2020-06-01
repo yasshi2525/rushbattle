@@ -26,14 +26,7 @@ export class SimpleScene {
   }
 }
 
-export type HeadlessSceneType = Scene<
-  SimpleScene,
-  SimpleContainer,
-  g.PointDownEvent,
-  g.PointMoveEvent,
-  g.PointUpEvent,
-  g.MessageEvent
->;
+export type HeadlessSceneType = Scene<SimpleScene, SimpleContainer>;
 
 class HeadlessScene implements HeadlessSceneType {
   protected readonly _original: SimpleScene;

@@ -7,19 +7,19 @@ import Resolver from "./resolver";
 import { ServiceAdapter } from "../adapters/adapter";
 import Team from "./team";
 
-export type GameOption<T, C, D, M, U, MSG> = {
-  adapter: ServiceAdapter<T, C, D, M, U, MSG>;
+export type GameOption<T, C> = {
+  adapter: ServiceAdapter<T, C>;
 };
 
 /**
  * ゲーム全体を管理
  */
-class Game<T, C, D, M, U, MSG> {
-  public readonly adapter: ServiceAdapter<T, C, D, M, U, MSG>;
+class Game<T, C> {
+  public readonly adapter: ServiceAdapter<T, C>;
   protected readonly resolver: Resolver;
   public readonly teams: Team[] = [];
 
-  constructor(opts: GameOption<T, C, D, M, U, MSG>) {
+  constructor(opts: GameOption<T, C>) {
     this.adapter = opts.adapter;
     this.resolver = new Resolver();
 

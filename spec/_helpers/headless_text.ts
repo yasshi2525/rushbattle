@@ -23,21 +23,11 @@ export class SimpleText extends SimpleObject2D {
   }
 }
 
-export type HeadlessTextType = Text<
-  SimpleScene,
-  SimpleContainer,
-  g.PointDownEvent,
-  g.PointMoveEvent,
-  g.PointUpEvent
->;
+export type HeadlessTextType = Text<SimpleScene, SimpleContainer>;
 
 export type CreateHeadlessTextOption = CreateTextOption<
   SimpleScene,
-  SimpleContainer,
-  g.PointDownEvent,
-  g.PointMoveEvent,
-  g.PointUpEvent,
-  g.MessageEvent
+  SimpleContainer
 >;
 
 class HeadlessText extends HeadlessObject2D<SimpleText>

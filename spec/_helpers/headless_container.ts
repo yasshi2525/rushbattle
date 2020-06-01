@@ -5,21 +5,11 @@ import { SimpleScene } from "./headless_scene";
 
 export class SimpleContainer extends SimpleObject2D {}
 
-export type HeadlessContainerType = Container<
-  SimpleScene,
-  SimpleContainer,
-  g.PointDownEvent,
-  g.PointMoveEvent,
-  g.PointUpEvent
->;
+export type HeadlessContainerType = Container<SimpleScene, SimpleContainer>;
 
 export type CreateHeadlessContainerOption = CreateContainerOption<
   SimpleScene,
-  SimpleContainer,
-  g.PointDownEvent,
-  g.PointMoveEvent,
-  g.PointUpEvent,
-  g.MessageEvent
+  SimpleContainer
 >;
 
 class HeadlessContainer extends HeadlessObject2D<SimpleContainer>

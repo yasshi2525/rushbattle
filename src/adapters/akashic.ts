@@ -1,26 +1,28 @@
 import AkashicContainer, {
+  AkashicContainerType,
   CreateAkashicContainerOption,
 } from "./akashic_container";
 import AkashicRectangle, {
+  AkashicRectangleType,
   CreateAkashicRectangleOption,
 } from "./akashic_rectangle";
-import AkashicSprite, { CreateAkashicSpriteOption } from "./akashic_sprite";
-import AkashicText, { CreateAkashicTextOption } from "./akashic_text";
+import AkashicScene, { AkashicSceneType } from "./akashic_scene";
+import AkashicSprite, {
+  AkashicSpriteType,
+  CreateAkashicSpriteOption,
+} from "./akashic_sprite";
+import AkashicText, {
+  AkashicTextType,
+  CreateAkashicTextOption,
+} from "./akashic_text";
 import { EventType, modelListener } from "@yasshi2525/rushmini";
 import { MessageEnvelop, isMessageEnvelop } from "../events/message";
 
-import AkashicScene from "./akashic_scene";
+import { Game } from "@akashic/game-driver";
 import { ServiceAdapter } from "./adapter";
 import { messageDecorder } from "../events/event_mapper";
 
-export type AkashicAdapterType = ServiceAdapter<
-  g.Scene,
-  g.E,
-  g.PointDownEvent,
-  g.PointMoveEvent,
-  g.PointUpEvent,
-  g.MessageEvent
->;
+export type AkashicAdapterType = ServiceAdapter<g.Scene, g.E>;
 export type AkashicAdapterOption = { game: g.Game };
 
 class AkashicAdapter implements AkashicAdapterType {
@@ -35,15 +37,15 @@ class AkashicAdapter implements AkashicAdapterType {
     this.game.raiseEvent(new g.MessageEvent(msg));
   }
 
-  public get scene(): AkashicScene {
-    return this._scene;
+  public get scene(): g.Scene {
+    return this.game.scene();
   }
 
-  public pushScene(v: AkashicScene): void {
+  public pushScene(v: AkashicSceneType): void {
     this.game.pushScene(v.original);
   }
 
-  public createScene(): AkashicScene {
+  public createScene(): AkashicSceneType {
     const scene = new AkashicScene({ game: this.game });
     scene.message.add((ev) => {
       if (isMessageEnvelop(ev.data)) {
@@ -57,11 +59,13 @@ class AkashicAdapter implements AkashicAdapterType {
     return scene;
   }
 
-  public createContainer(opts: CreateAkashicContainerOption): AkashicContainer {
+  public createContainer(
+    opts: CreateAkashicContainerOption
+  ): AkashicContainerType {
     return new AkashicContainer(opts);
   }
 
-  public createSprite(opts: CreateAkashicSpriteOption): AkashicSprite {
+  public createSprite(opts: CreateAkashicSpriteOption): AkashicSpriteType {
     return new AkashicSprite({
       game: this.game,
       local: opts.local,
@@ -82,11 +86,13 @@ class AkashicAdapter implements AkashicAdapterType {
     });
   }
 
-  public createRectangle(opts: CreateAkashicRectangleOption): AkashicRectangle {
+  public createRectangle(
+    opts: CreateAkashicRectangleOption
+  ): AkashicRectangleType {
     return new AkashicRectangle(opts);
   }
 
-  public createText(opts: CreateAkashicTextOption): AkashicText {
+  public createText(opts: CreateAkashicTextOption): AkashicTextType {
     return new AkashicText(opts);
   }
 }

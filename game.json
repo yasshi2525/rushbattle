@@ -144,6 +144,11 @@
 			"path": "script/models/train.js",
 			"global": true
 		},
+		"participation_button": {
+			"type": "script",
+			"path": "script/entities/participation_button.js",
+			"global": true
+		},
 		"akashic_container": {
 			"type": "script",
 			"path": "script/adapters/akashic_container.js",
@@ -177,6 +182,13 @@
 		"akashic_trigger": {
 			"type": "script",
 			"path": "script/adapters/akashic_trigger.js",
+			"global": true
+		},
+		"test": {
+			"type": "image",
+			"width": 60,
+			"height": 60,
+			"path": "image/test.png",
 			"global": true
 		}
 	},

@@ -6,22 +6,14 @@ import { SimpleScene } from "./headless_scene";
 
 export class SimpleSprite extends SimpleObject2D {}
 
-export type HeadlessSpriteType = Sprite<
-  SimpleScene,
-  SimpleContainer,
-  g.PointDownEvent,
-  g.PointMoveEvent,
-  g.PointUpEvent
->;
+export type HeadlessSpriteType = Sprite<SimpleScene, SimpleContainer>;
 
 export type CreateHeadlessSpriteOption = CreateContainerOption<
   SimpleScene,
-  SimpleContainer,
-  g.PointDownEvent,
-  g.PointMoveEvent,
-  g.PointUpEvent,
-  g.MessageEvent
->;
+  SimpleContainer
+> & {
+  src: string;
+};
 
 class HeadlessSprite extends HeadlessObject2D<SimpleSprite>
   implements HeadlessSpriteType {

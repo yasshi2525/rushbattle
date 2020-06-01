@@ -2,22 +2,9 @@ import { CreateRectangleOption, Rectangle } from "./adapter";
 
 import AkashicObject2D from "./akashic_object2D";
 
-export type AkashicRectangleType = Rectangle<
-  g.Scene,
-  g.FilledRect,
-  g.PointDownEvent,
-  g.PointMoveEvent,
-  g.PointUpEvent
->;
+export type AkashicRectangleType = Rectangle<g.Scene, g.E>;
 
-export type CreateAkashicRectangleOption = CreateRectangleOption<
-  g.Scene,
-  g.E,
-  g.PointDownEvent,
-  g.PointMoveEvent,
-  g.PointUpEvent,
-  g.MessageEvent
->;
+export type CreateAkashicRectangleOption = CreateRectangleOption<g.Scene, g.E>;
 
 class AkashicRectangle extends AkashicObject2D<g.FilledRect>
   implements AkashicRectangle {
@@ -26,19 +13,19 @@ class AkashicRectangle extends AkashicObject2D<g.FilledRect>
     super(
       new g.FilledRect({
         scene: opts.scene.original,
-        local: opts.local,
-        x: opts.x,
-        y: opts.y,
-        width: opts.width,
-        height: opts.height,
-        anchorX: opts.anchorX,
-        anchorY: opts.anchorY,
-        angle: opts.angle,
-        scaleX: opts.scaleX,
-        scaleY: opts.scaleY,
-        hidden: opts.hidden,
-        opacity: opts.opacity,
-        touchable: opts.hidden,
+        local: opts.local ?? false,
+        x: opts.x ?? 0,
+        y: opts.y ?? 0,
+        width: opts.width ?? 0,
+        height: opts.height ?? 0,
+        anchorX: opts.anchorX ?? undefined,
+        anchorY: opts.anchorY ?? undefined,
+        angle: opts.angle ?? 0,
+        scaleX: opts.scaleX ?? 1,
+        scaleY: opts.scaleY ?? 1,
+        hidden: opts.hidden ?? false,
+        opacity: opts.opacity ?? 1,
+        touchable: opts.touchable ?? false,
         cssColor: opts.color,
       })
     );

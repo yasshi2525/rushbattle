@@ -7,9 +7,32 @@ export interface Trigger<T> {
   fire(ev?: T): void;
 }
 
-export interface Container<T, C, D, M, U> {
-  append(child: Container<T, C, D, M, U>): void;
-  remove(child: Container<T, C, D, M, U>): void;
+type Offset2D = { x: number; y: number };
+type PlainPlayer = { id: string };
+
+type PointEvent<T> = {
+  local: boolean;
+  player: PlainPlayer;
+  point: Offset2D;
+  pointerId: number;
+  target: T;
+};
+
+export type PointDownEvent<T> = PointEvent<T>;
+export type PointMoveEvent<T> = PointEvent<T> & {
+  startDelta: Offset2D;
+  prevDelta: Offset2D;
+};
+export type PointUpEvent<T> = PointMoveEvent<T>;
+export type MessageEvent = {
+  local: boolean;
+  player: PlainPlayer;
+  data: unknown;
+};
+
+export interface Container<T, C> {
+  append(child: Container<T, C>): void;
+  remove(child: Container<T, C>): void;
   destroy(): void;
   local: boolean;
   scene: T;
@@ -24,9 +47,9 @@ export interface Container<T, C, D, M, U> {
   scaleY: number;
   touchable: boolean;
   opacity: number;
-  pointDown: Trigger<D>;
-  pointMove: Trigger<M>;
-  pointUp: Trigger<U>;
+  pointDown: Trigger<PointDownEvent<C>>;
+  pointMove: Trigger<PointMoveEvent<C>>;
+  pointUp: Trigger<PointUpEvent<C>>;
   children: C[];
   show(): void;
   hide(): void;
@@ -35,8 +58,8 @@ export interface Container<T, C, D, M, U> {
   original: C;
 }
 
-export type CreateContainerOption<T, C, D, M, U, MSG> = {
-  scene: Scene<T, C, D, M, U, MSG>;
+export type CreateContainerOption<T, C> = {
+  scene: Scene<T, C>;
   local?: boolean;
   x?: number;
   y?: number;
@@ -52,74 +75,47 @@ export type CreateContainerOption<T, C, D, M, U, MSG> = {
   opacity?: number;
 };
 
-export interface Rectangle<T, C, D, M, U> extends Container<T, C, D, M, U> {
+export interface Rectangle<T, C> extends Container<T, C> {
   color: string;
 }
 
-export type CreateRectangleOption<T, C, D, M, U, MSG> = CreateContainerOption<
-  T,
-  C,
-  D,
-  M,
-  U,
-  MSG
-> & {
+export type CreateRectangleOption<T, C> = CreateContainerOption<T, C> & {
   color: string;
 };
 
-export type Sprite<T, C, D, M, U> = Container<T, C, D, M, U>;
+export type Sprite<T, C> = Container<T, C>;
 
-export type CreateSpriteOption<T, C, D, M, U, MSG> = CreateContainerOption<
-  T,
-  C,
-  D,
-  M,
-  U,
-  MSG
-> & {
+export type CreateSpriteOption<T, C> = CreateContainerOption<T, C> & {
   src: string;
 };
 
-export interface Text<T, C, D, M, U> extends Container<T, C, D, M, U> {
+export interface Text<T, C> extends Container<T, C> {
   fontSize: number;
   text: string;
 }
 
-export type CreateTextOption<T, C, D, M, U, MSG> = CreateContainerOption<
-  T,
-  C,
-  D,
-  M,
-  U,
-  MSG
-> & {
+export type CreateTextOption<T, C> = CreateContainerOption<T, C> & {
   fontSize: number;
   text: string;
 };
 
-export interface Scene<T, C, D, M, U, MSG> {
-  append(child: Container<T, C, D, M, U>): void;
-  remove(child: Container<T, C, D, M, U>): void;
+export interface Scene<T, C> {
+  append(child: Container<T, C>): void;
+  remove(child: Container<T, C>): void;
   isCurrentScene(): boolean;
   loaded: Trigger<T>;
   update: Trigger<void>;
-  message: Trigger<MSG>;
+  message: Trigger<MessageEvent>;
   original: T;
 }
 
-export interface ServiceAdapter<T, C, D, M, U, MSG> {
-  scene: Scene<T, C, D, M, U, MSG>;
+export interface ServiceAdapter<T, C> {
+  scene: T;
   send(msg: MessageEnvelop): void;
-  pushScene(scene: Scene<T, C, D, M, U, MSG>): void;
-  createScene(): Scene<T, C, D, M, U, MSG>;
-  createContainer(
-    opts: CreateContainerOption<T, C, D, M, U, MSG>
-  ): Container<T, C, D, M, U>;
-  createRectangle(
-    opts: CreateRectangleOption<T, C, D, M, U, MSG>
-  ): Rectangle<T, C, D, M, U>;
-  createSprite(
-    opts: CreateSpriteOption<T, C, D, M, U, MSG>
-  ): Sprite<T, C, D, M, U>;
-  createText(opts: CreateTextOption<T, C, D, M, U, MSG>): Text<T, C, D, M, U>;
+  pushScene(scene: Scene<T, C>): void;
+  createScene(): Scene<T, C>;
+  createContainer(opts: CreateContainerOption<T, C>): Container<T, C>;
+  createRectangle(opts: CreateRectangleOption<T, C>): Rectangle<T, C>;
+  createSprite(opts: CreateSpriteOption<T, C>): Sprite<T, C>;
+  createText(opts: CreateTextOption<T, C>): Text<T, C>;
 }

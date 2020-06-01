@@ -9,7 +9,7 @@ export interface Reflectable {
 }
 
 class Resolver {
-  protected storage: Storage = {};
+  protected readonly storage: Storage = {};
   constructor() {
     resourceTypes.forEach((res) => {
       modelListener
@@ -21,8 +21,15 @@ class Resolver {
     });
   }
 
-  public find<T>(key: new (...args: unknown[]) => T, id: number | string): T {
-    return (find(this.storage[key.name], (e) => e.id === id) as unknown) as T;
+  public list<T extends Reflectable>(key: new (...args: unknown[]) => T): T[] {
+    return this.storage[key.name] as T[];
+  }
+
+  public find<T extends Reflectable>(
+    key: new (...args: unknown[]) => T,
+    id: number | string
+  ): T {
+    return find(this.storage[key.name], (e) => e.id === id) as T;
   }
 
   protected add(obj: Reflectable): void {

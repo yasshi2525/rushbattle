@@ -1,9 +1,8 @@
-import {
-  createAkashicRunner,
-  createGameWithAkashic,
-} from "../_helpers/akashic";
+import { createGame, startAkashicGame } from "../_helpers/akashic";
 
 import AkashicAdapter from "adapters/akashic";
+import AkashicRectangle from "adapters/akashic_rectangle";
+import { AkashicSceneType } from "adapters/akashic_scene";
 import Game from "models/game";
 import ParticipationButton from "entities/participation_button";
 import { RunnerV2 } from "@akashic/headless-driver";
@@ -12,38 +11,34 @@ describe("participation_button", () => {
   let runner: RunnerV2;
   let akashic: g.Game;
   let adapter: AkashicAdapter;
-  let game: Game;
-  let scene: g.Scene;
-  let button: ParticipationButton;
+  let game: Game<g.Scene, g.E>;
+  let scene: AkashicSceneType;
+  let button: ParticipationButton<g.Scene, g.E>;
   let pointDownCounter: number;
   let pointUpCounter: number;
+
   beforeEach(async () => {
     pointDownCounter = 0;
     pointUpCounter = 0;
-    runner = await createAkashicRunner();
-    game = await createGameWithAkashic({
-      runner,
-      main: "main",
-      sceneMapGenerator: (game) => {
-        scene = new g.Scene({ game });
-        scene.loaded.add(() => {
-          button = new ParticipationButton(scene);
-          button.entity.pointDown.add(() => {
-            pointDownCounter++;
-          });
-          button.entity.pointUp.add(() => {
-            pointUpCounter++;
-          });
-          scene.append(button.entity);
-        });
-        return { main: scene };
-      },
-    });
+    const r = await startAkashicGame();
+    runner = r.runner;
+    game = createGame({ game: r.game });
     adapter = game.adapter as AkashicAdapter;
     akashic = adapter.game;
-    adapter.scene = "main";
+    scene = adapter.createScene();
+    scene.loaded.add(() => {
+      button = new ParticipationButton(adapter, scene);
+      button.entity.pointDown.add(() => {
+        pointDownCounter++;
+      });
+      button.entity.pointUp.add(() => {
+        pointUpCounter++;
+      });
+      scene.append(button.entity);
+    });
+    adapter.pushScene(scene);
     akashic.tick(false);
-    expect(akashic.scene()).toBe(scene);
+    expect(akashic.scene()).toBe(scene.original);
   });
 
   afterEach(() => {
@@ -53,13 +48,11 @@ describe("participation_button", () => {
 
   it("初期状態 = ACTIVE_COLOR", () => {
     expect(button.entity).not.toBeUndefined();
-    expect(button.entity).toBeInstanceOf(g.E);
-    expect(button.entity.cssColor).toEqual(ParticipationButton.ACTIVE_COLOR);
+    expect(button.entity).toBeInstanceOf(AkashicRectangle);
+    expect(button.entity.color).toEqual(ParticipationButton.ACTIVE_COLOR);
     expect(button.entity.visible()).toBeTruthy();
     expect(pointDownCounter).toEqual(0);
     expect(pointUpCounter).toEqual(0);
-    expect(akashic.scene().children.length).toBeGreaterThan(0);
-    expect(akashic.scene().children[0]).toBe(button.entity);
   });
 
   it("ボタンを押している間色がPRESSED_COLORに変化", () => {
@@ -68,11 +61,9 @@ describe("participation_button", () => {
       player: { id: "test" },
       point: { x: 0, y: 0 },
       pointerId: 1,
-      priority: 2,
-      target: button.entity,
-      type: g.EventType.PointDown,
+      target: button.entity.original,
     });
-    expect(button.entity.cssColor).toEqual(ParticipationButton.PRESSED_COLOR);
+    expect(button.entity.color).toEqual(ParticipationButton.PRESSED_COLOR);
     expect(button.entity.visible()).toBeTruthy();
     expect(pointDownCounter).toEqual(1);
     expect(pointUpCounter).toEqual(0);
@@ -84,9 +75,7 @@ describe("participation_button", () => {
       player: { id: "test" },
       point: { x: 0, y: 0 },
       pointerId: 1,
-      priority: 2,
-      target: button.entity,
-      type: g.EventType.PointDown,
+      target: button.entity.original,
     });
     button.entity.pointUp.fire({
       local: true,
@@ -95,25 +84,22 @@ describe("participation_button", () => {
       startDelta: { x: 0, y: 0 },
       prevDelta: { x: 0, y: 0 },
       pointerId: 1,
-      priority: 2,
-      target: button.entity,
-      type: g.EventType.PointUp,
+      target: button.entity.original,
     });
-    expect(button.entity.cssColor).toEqual(ParticipationButton.INACTIVE_COLOR);
+    expect(button.entity.color).toEqual(ParticipationButton.INACTIVE_COLOR);
     expect(button.entity.visible()).toBeTruthy();
     expect(pointDownCounter).toEqual(1);
     expect(pointUpCounter).toEqual(1);
   });
 
   it("一度ボタンを押したら操作不能", () => {
+    expect(button.entity.touchable).toBeTruthy();
     button.entity.pointDown.fire({
       local: true,
       player: { id: "test" },
       point: { x: 0, y: 0 },
       pointerId: 1,
-      priority: 2,
-      target: button.entity,
-      type: g.EventType.PointDown,
+      target: button.entity.original,
     });
     expect(button.entity.touchable).toBeTruthy();
     button.entity.pointUp.fire({
@@ -123,9 +109,7 @@ describe("participation_button", () => {
       startDelta: { x: 0, y: 0 },
       prevDelta: { x: 0, y: 0 },
       pointerId: 1,
-      priority: 2,
-      target: button.entity,
-      type: g.EventType.PointUp,
+      target: button.entity.original,
     });
     expect(button.entity.touchable).toBeFalsy();
   });
@@ -136,9 +120,7 @@ describe("participation_button", () => {
       player: { id: "test" },
       point: { x: 0, y: 0 },
       pointerId: 1,
-      priority: 2,
-      target: button.entity,
-      type: g.EventType.PointDown,
+      target: button.entity.original,
     });
     button.entity.pointUp.fire({
       local: true,
@@ -147,10 +129,8 @@ describe("participation_button", () => {
       startDelta: { x: 0, y: 0 },
       prevDelta: { x: 0, y: 0 },
       pointerId: 2,
-      priority: 2,
-      target: button.entity,
-      type: g.EventType.PointUp,
+      target: button.entity.original,
     });
-    expect(button.entity.cssColor).toEqual(ParticipationButton.PRESSED_COLOR);
+    expect(button.entity.color).toEqual(ParticipationButton.PRESSED_COLOR);
   });
 });

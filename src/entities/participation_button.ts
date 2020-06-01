@@ -1,17 +1,19 @@
-class ParticipationButton {
-  protected readonly scene: g.Scene;
-  protected readonly _entity: g.FilledRect;
+import { Rectangle, Scene, ServiceAdapter } from "../adapters/adapter";
+
+class ParticipationButton<T, C> {
+  protected readonly scene: Scene<T, C>;
+  protected readonly _entity: Rectangle<T, C>;
 
   public static ACTIVE_COLOR = "#ff5555";
   public static PRESSED_COLOR = "#883333";
   public static INACTIVE_COLOR = "#333333";
 
-  constructor(scene: g.Scene) {
+  constructor(adapter: ServiceAdapter<T, C>, scene: Scene<T, C>) {
     this.scene = scene;
-    this._entity = new g.FilledRect({
+    this._entity = adapter.createRectangle({
       local: true,
       scene,
-      cssColor: ParticipationButton.ACTIVE_COLOR,
+      color: ParticipationButton.ACTIVE_COLOR,
       height: 100,
       width: 100,
       touchable: true,
@@ -22,7 +24,7 @@ class ParticipationButton {
         return;
       }
       pointerId = ev.pointerId;
-      this._entity.cssColor = ParticipationButton.PRESSED_COLOR;
+      this._entity.color = ParticipationButton.PRESSED_COLOR;
       this._entity.modified();
     });
     this._entity.pointUp.add((ev) => {
@@ -30,13 +32,13 @@ class ParticipationButton {
         return;
       }
       pointerId = undefined;
-      this._entity.cssColor = ParticipationButton.INACTIVE_COLOR;
+      this._entity.color = ParticipationButton.INACTIVE_COLOR;
       this._entity.touchable = false;
       this._entity.modified();
     });
   }
 
-  public get entity(): g.FilledRect {
+  public get entity(): Rectangle<T, C> {
     return this._entity;
   }
 }

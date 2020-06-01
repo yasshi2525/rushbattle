@@ -1,12 +1,20 @@
+import {
+  AkashicSpriteType,
+  CreateAkashicSpriteOption,
+} from "adapters/akashic_sprite";
 import { PlayManager, RunnerManager, RunnerV2 } from "@akashic/headless-driver";
 
 import AkashicAdapter from "adapters/akashic";
+import AkashicObject2D from "adapters/akashic_object2D";
 import Game from "models/game";
 import { resolve } from "path";
 
 declare const rootDir: string;
 
-export const createAkashicRunner = async (): Promise<RunnerV2> => {
+export const startAkashicGame = async (): Promise<{
+  runner: RunnerV2;
+  game: g.Game;
+}> => {
   const pMng = new PlayManager();
   const playId = await pMng.createPlay({
     gameJsonPath: resolve(rootDir, "game.json"),
@@ -30,24 +38,40 @@ export const createAkashicRunner = async (): Promise<RunnerV2> => {
     executionMode: "active",
   });
   const runner = mng.getRunner(runnerId) as RunnerV2;
-  return runner;
+  const game = ((await mng.startRunner(runnerId)) as unknown) as g.Game;
+  return { runner: runner, game: game };
 };
 
-export type CreateGameWithAkashicOption = {
-  runner: RunnerV2;
-  main: string;
-  sceneMapGenerator: (game: g.Game) => { [index: string]: g.Scene };
-};
+class MockSprite extends AkashicObject2D<g.E> implements AkashicSpriteType {
+  constructor(opts: CreateAkashicSpriteOption) {
+    super(
+      new g.E({
+        scene: opts.scene.original,
+        local: opts.local,
+        x: opts.x,
+        y: opts.y,
+        width: opts.width,
+        height: opts.height,
+        anchorX: opts.anchorX,
+        anchorY: opts.anchorY,
+        angle: opts.angle,
+        scaleX: opts.scaleX,
+        scaleY: opts.scaleY,
+        hidden: opts.hidden,
+        opacity: opts.opacity,
+        touchable: opts.hidden,
+      })
+    );
+  }
+}
 
-export const createGameWithAkashic = async (
-  opts: CreateGameWithAkashicOption
-): Promise<Game> => {
-  const game = ((await opts.runner.start()) as unknown) as g.Game;
-  return new Game({
-    adapter: new AkashicAdapter({
-      game,
-      main: opts.main,
-      sceneMapper: opts.sceneMapGenerator(game),
-    }),
-  });
-};
+class NonAssetAkashicAdapter extends AkashicAdapter {
+  public createSprite(opts: CreateAkashicSpriteOption): AkashicSpriteType {
+    return new MockSprite(opts);
+  }
+}
+
+export type CreateGameOption = { game: g.Game };
+
+export const createGame = (opts: CreateGameOption): Game<g.Scene, g.E> =>
+  new Game({ adapter: new NonAssetAkashicAdapter({ game: opts.game }) });

@@ -79,16 +79,6 @@
 			"path": "script/models/resolver.js",
 			"global": true
 		},
-		"scene_mapper": {
-			"type": "script",
-			"path": "script/scenes/scene_mapper.js",
-			"global": true
-		},
-		"start": {
-			"type": "script",
-			"path": "script/scenes/start.js",
-			"global": true
-		},
 		"action": {
 			"type": "script",
 			"path": "script/models/action.js",
@@ -157,6 +147,48 @@
 		"participation_button": {
 			"type": "script",
 			"path": "script/entities/participation_button.js",
+			"global": true
+		},
+		"akashic_container": {
+			"type": "script",
+			"path": "script/adapters/akashic_container.js",
+			"global": true
+		},
+		"akashic_object2D": {
+			"type": "script",
+			"path": "script/adapters/akashic_object2D.js",
+			"global": true
+		},
+		"akashic_rectangle": {
+			"type": "script",
+			"path": "script/adapters/akashic_rectangle.js",
+			"global": true
+		},
+		"akashic_scene": {
+			"type": "script",
+			"path": "script/adapters/akashic_scene.js",
+			"global": true
+		},
+		"akashic_sprite": {
+			"type": "script",
+			"path": "script/adapters/akashic_sprite.js",
+			"global": true
+		},
+		"akashic_text": {
+			"type": "script",
+			"path": "script/adapters/akashic_text.js",
+			"global": true
+		},
+		"akashic_trigger": {
+			"type": "script",
+			"path": "script/adapters/akashic_trigger.js",
+			"global": true
+		},
+		"test": {
+			"type": "image",
+			"width": 60,
+			"height": 60,
+			"path": "image/test.png",
 			"global": true
 		}
 	},

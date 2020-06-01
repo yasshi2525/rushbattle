@@ -32,8 +32,8 @@
     "@akashic/game-driver": "^1.8.0",
     "@akashic/headless-driver": "^1.1.11",
     "@types/jest": "^25.2.3",
-    "@typescript-eslint/eslint-plugin": "^3.0.1",
-    "@typescript-eslint/parser": "^3.0.1",
+    "@typescript-eslint/eslint-plugin": "^3.0.2",
+    "@typescript-eslint/parser": "^3.0.2",
     "eslint": "^7.1.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-es": "^3.0.1",
@@ -45,12 +45,12 @@
     "prettier": "^2.0.5",
     "prettier-plugin-import-sort": "0.0.4",
     "rimraf": "^3.0.2",
-    "ts-jest": "^26.0.0",
-    "typescript": "^3.9.3"
+    "ts-jest": "^26.1.0",
+    "typescript": "^3.9.3",
+    "nan": "^2.14.1"
   },
   "dependencies": {
     "@akashic/akashic-engine": "^2.6.3",
-    "@yasshi2525/rushmini": "^1.5.1",
-    "nan": "^2.14.1"
+    "@yasshi2525/rushmini": "^1.5.2"
   }
 }

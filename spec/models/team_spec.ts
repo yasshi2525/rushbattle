@@ -1,7 +1,8 @@
 import { Game, createGame } from "../_helpers/game";
 
 import { JoinMessage } from "events/join";
-import { Point } from "@yasshi2525/rushmini";
+import Railway from "models/railway";
+import Team from "models/team";
 
 describe("team", () => {
   let game: Game;
@@ -16,19 +17,20 @@ describe("team", () => {
     expect(game.teams.length).toEqual(0);
     const team = game.createTeam("test");
     expect(team).not.toBeUndefined();
+    expect(team.id).toEqual(1);
     expect(team.name).toEqual("test");
-    expect(team.line).not.toBeUndefined();
+    expect(team.railway).not.toBeUndefined();
+    expect(team.railway.isAdmin).toBeFalsy();
     expect(game.teams.length).toEqual(1);
+    expect(game.resolver.find(Team, team.id)).toBe(team);
+    expect(game.resolver.list(Team)).toEqual([team]);
+    expect(game.resolver.list(Railway)).toEqual([team.railway]);
   });
 
-  it("create start point", () => {
-    const team = game.createTeam("testTeam");
-    const rn = team.startRailway(new Point(5, 10));
-    expect(rn.loc().x).toEqual(5);
-    expect(rn.loc().y).toEqual(10);
-    expect(rn.platform).not.toBeUndefined();
-    expect(team.line.top.departure()).toBe(rn);
-    expect(team.line.top.destination()).toBe(rn);
+  it("create as admin", () => {
+    const team = game.createTeam("admin", true);
+    expect(team.id).toEqual(1);
+    expect(team.railway.isAdmin).toBeTruthy();
   });
 
   it("request join", () => {

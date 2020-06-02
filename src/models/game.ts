@@ -1,11 +1,11 @@
 import { EventType, modelListener } from "@yasshi2525/rushmini";
 
-import { ExtendRailMessage } from "../events/rail_extend";
 import { JoinMessage } from "../events/join";
 import { Message } from "../events/message";
 import Resolver from "./resolver";
 import { ServiceAdapter } from "../adapters/adapter";
 import Team from "./team";
+import { resourceTypes } from "./model_mapper";
 
 export type GameOption<T, C> = {
   adapter: ServiceAdapter<T, C>;
@@ -16,7 +16,7 @@ export type GameOption<T, C> = {
  */
 class Game<T, C> {
   public readonly adapter: ServiceAdapter<T, C>;
-  protected readonly resolver: Resolver;
+  public readonly resolver: Resolver;
   public readonly teams: Team[] = [];
 
   constructor(opts: GameOption<T, C>) {
@@ -26,13 +26,10 @@ class Game<T, C> {
     modelListener
       .find(EventType.CREATED, JoinMessage)
       .register((ev) => Team.handleJoinEvent(ev, this.resolver));
-    modelListener
-      .find(EventType.CREATED, ExtendRailMessage)
-      .register((ev) => Team.handleExtendRailEvent(ev, this.resolver));
   }
 
-  public createTeam(name: string): Team {
-    const team = new Team({ name });
+  public createTeam(name: string, isAdmin = false): Team {
+    const team = new Team({ name, isAdmin });
     modelListener.fire(EventType.CREATED);
     this.teams.push(team);
     return team;
@@ -45,6 +42,9 @@ class Game<T, C> {
   public destroy(): void {
     modelListener.unregisterAll();
     modelListener.flush();
+    resourceTypes.forEach(
+      (t) => (((t as unknown) as { COUNT: number }).COUNT = 1)
+    );
   }
 }
 

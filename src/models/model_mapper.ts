@@ -8,6 +8,7 @@ import Player from "./player";
 import RailEdge from "./rail_edge";
 import RailLine from "./rail_line";
 import RailNode from "./rail_node";
+import Railway from "./railway";
 import { Reflectable } from "./resolver";
 import Residence from "./residence";
 import Station from "./station";
@@ -17,6 +18,7 @@ import Train from "./train";
 export const resourceTypes: (new (...args: unknown[]) => Reflectable)[] = [
   Team,
   Player,
+  Railway,
   Residence,
   Company,
   RailNode,

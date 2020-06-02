@@ -206,6 +206,11 @@
 			"path": "script/models/railway.js",
 			"global": true
 		},
+		"city": {
+			"type": "script",
+			"path": "script/models/city.js",
+			"global": true
+		},
 		"view_handler": {
 			"type": "script",
 			"path": "script/entities/view_handler.js",
@@ -240,6 +245,18 @@
 			"type": "script",
 			"path": "script/scenes/title_scene.js",
 			"global": true
+		},
+		"station_img": {
+			"type": "image",
+			"width": 94,
+			"height": 94,
+			"path": "image/station_img.png"
+		},
+		"train_img": {
+			"type": "image",
+			"width": 70,
+			"height": 70,
+			"path": "image/train_img.png"
 		}
 	},
 	"moduleMainScripts": {
@@ -343,9 +360,6 @@
 		"node_modules/@yasshi2525/rushmini/lib/utils/track_finder.js",
 		"node_modules/@yasshi2525/rushmini/lib/utils/transport_finder.js",
 		"node_modules/@yasshi2525/rushmini/lib/utils/tweet.js",
-		"node_modules/@yasshi2525/rushmini/lib/utils/viewer.js",
-		"node_modules/nan/include_dirs.js",
-		"node_modules/path-browserify/index.js",
-		"node_modules/process/browser.js"
+		"node_modules/@yasshi2525/rushmini/lib/utils/viewer.js"
 	]
 }

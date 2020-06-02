@@ -1,16 +1,19 @@
 import { Message, MessageEnvelop } from "./message";
 
-import { ExtendRailMessage } from "./rail_extend";
+import { GameEndMessage } from "./game_end";
+import { GameStartMessage } from "./game_start";
 import { JoinMessage } from "./join";
 
 export enum MessageType {
   JOIN = "join",
-  EXTEND_RAIL = "rail_extend",
+  GAME_START = "game_start",
+  GAME_END = "game_end",
 }
 
 export const messageDecorder = (): {
   [key in MessageType]: (msg: MessageEnvelop) => Message;
 } => ({
   join: JoinMessage.decode,
-  rail_extend: ExtendRailMessage.decode,
+  game_start: GameStartMessage.decode,
+  game_end: GameEndMessage.decode,
 });

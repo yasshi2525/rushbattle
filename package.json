@@ -7,6 +7,7 @@
     "build": "rimraf ./script ./tmp && tsc && akashic scan asset script",
     "update": "akashic scan asset && akashic scan globalScripts",
     "start": "akashic serve -s nicolive",
+    "local": "akashic-sandbox .",
     "export": "akashic export html --output ../rushbattle-latest.zip --atsumaru",
     "lint": "eslint src",
     "test": "jest"
@@ -28,6 +29,7 @@
   "homepage": "https://github.com/yasshi2525/rushbuttle#readme",
   "devDependencies": {
     "@akashic/akashic-cli": "^1.13.21",
+    "@akashic/akashic-sandbox": "^0.16.10",
     "@akashic/engine-files": "^2.1.40",
     "@akashic/game-driver": "^1.8.0",
     "@akashic/headless-driver": "^1.1.11",
@@ -41,13 +43,13 @@
     "import-sort-style-eslint": "^6.0.0",
     "jest": "^26.0.1",
     "jest-environment-jsdom": "^26.0.1",
+    "nan": "^2.14.1",
     "path": "^0.12.7",
     "prettier": "^2.0.5",
     "prettier-plugin-import-sort": "0.0.4",
     "rimraf": "^3.0.2",
     "ts-jest": "^26.1.0",
-    "typescript": "^3.9.3",
-    "nan": "^2.14.1"
+    "typescript": "^3.9.3"
   },
   "dependencies": {
     "@akashic/akashic-engine": "^2.6.3",

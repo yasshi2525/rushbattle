@@ -59,11 +59,6 @@
 			"path": "script/events/message.js",
 			"global": true
 		},
-		"rail_extend": {
-			"type": "script",
-			"path": "script/events/rail_extend.js",
-			"global": true
-		},
 		"model_mapper": {
 			"type": "script",
 			"path": "script/models/model_mapper.js",
@@ -209,6 +204,41 @@
 		"railway": {
 			"type": "script",
 			"path": "script/models/railway.js",
+			"global": true
+		},
+		"view_handler": {
+			"type": "script",
+			"path": "script/entities/view_handler.js",
+			"global": true
+		},
+		"game_end": {
+			"type": "script",
+			"path": "script/events/game_end.js",
+			"global": true
+		},
+		"game_start": {
+			"type": "script",
+			"path": "script/events/game_start.js",
+			"global": true
+		},
+		"ending_scene": {
+			"type": "script",
+			"path": "script/scenes/ending_scene.js",
+			"global": true
+		},
+		"game_scene": {
+			"type": "script",
+			"path": "script/scenes/game_scene.js",
+			"global": true
+		},
+		"scene_handler": {
+			"type": "script",
+			"path": "script/scenes/scene_handler.js",
+			"global": true
+		},
+		"title_scene": {
+			"type": "script",
+			"path": "script/scenes/title_scene.js",
 			"global": true
 		}
 	},

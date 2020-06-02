@@ -190,6 +190,21 @@
 			"height": 60,
 			"path": "image/test.png",
 			"global": true
+		},
+		"model_binder": {
+			"type": "script",
+			"path": "script/entities/model_binder.js",
+			"global": true
+		},
+		"point_view": {
+			"type": "script",
+			"path": "script/entities/point_view.js",
+			"global": true
+		},
+		"railway_viewer": {
+			"type": "script",
+			"path": "script/entities/railway_viewer.js",
+			"global": true
 		}
 	},
 	"moduleMainScripts": {

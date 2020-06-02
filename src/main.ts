@@ -2,6 +2,7 @@ import AkashicAdapter from "./adapters/akashic";
 import Game from "./models/game";
 import { JoinMessage } from "./events/join";
 import { RPGAtsumaruWindow } from "./parameterObject";
+import { createRailwayPanel } from "./entities/railway_viewer";
 
 declare const window: RPGAtsumaruWindow;
 
@@ -12,6 +13,11 @@ export function main(/* param: GameMainParameterObject */): void {
 
   const admin = game.createTeam("admin");
   const user = game.createTeam("user");
+
+  g.game.join.addOnce((ev) => {
+    admin.join(ev.player.id);
+  });
+
   let cnt = 0;
   const scene = adapter.createScene();
 
@@ -30,6 +36,9 @@ export function main(/* param: GameMainParameterObject */): void {
       );
       cnt++;
     });
+
+    scene.append(createRailwayPanel({ adapter, scene }));
+
     const btn = adapter.createRectangle({
       scene: scene,
       local: true,
@@ -50,12 +59,6 @@ export function main(/* param: GameMainParameterObject */): void {
       game.send(new JoinMessage({ team: user.id, user: g.game.selfId }));
     });
     scene.append(btn);
-    g.game.join.addOnce((ev) => {
-      admin.join(ev.player.id);
-      if (ev.player.id != `${g.game.selfId}`) {
-        btn.show();
-      }
-    });
   });
   adapter.pushScene(scene);
 }

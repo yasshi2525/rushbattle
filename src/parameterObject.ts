@@ -1,4 +1,5 @@
 export interface GameMainParameterObject extends g.GameMainParameterObject {
+  [index: string]: unknown;
   sessionParameter: {
     mode?: string;
     totalTimeLimit?: number;
@@ -7,6 +8,7 @@ export interface GameMainParameterObject extends g.GameMainParameterObject {
   };
   isAtsumaru: boolean;
   random: g.RandomGenerator;
+  firstJoinedPlayerId: string;
 }
 
 export interface RPGAtsumaruWindow {

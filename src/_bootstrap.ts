@@ -1,4 +1,3 @@
-// 通常このファイルを編集する必要はありません。ゲームの処理は main.js に記述してください
 import { GameMainParameterObject, RPGAtsumaruWindow } from "./parameterObject";
 
 import { main } from "./main";
@@ -23,6 +22,10 @@ export = (originalParam: g.GameMainParameterObject) => {
   const scene = new g.Scene({
     game: g.game,
   });
+  // joinイベントを受け取る
+  g.game.join.addOnce((ev) => {
+    param.firstJoinedPlayerId = `${ev.player.id}`;
+  });
   // セッションパラメーターを受け取ってゲームを開始します
   scene.message.add((msg) => {
     if (msg.data && msg.data.type === "start" && msg.data.parameters) {
@@ -33,7 +36,7 @@ export = (originalParam: g.GameMainParameterObject) => {
         );
       }
       g.game.popScene();
-      main(/*param*/);
+      main(param as GameMainParameterObject);
     }
   });
   scene.loaded.add(() => {
@@ -43,7 +46,7 @@ export = (originalParam: g.GameMainParameterObject) => {
       // 待ち時間を超えた場合はゲームを開始します
       if (currentTickCount > limitTickToWait) {
         g.game.popScene();
-        main(/*param*/);
+        main(param as GameMainParameterObject);
       }
     });
   });

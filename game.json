@@ -205,6 +205,11 @@
 			"type": "script",
 			"path": "script/entities/railway_viewer.js",
 			"global": true
+		},
+		"railway": {
+			"type": "script",
+			"path": "script/models/railway.js",
+			"global": true
 		}
 	},
 	"moduleMainScripts": {

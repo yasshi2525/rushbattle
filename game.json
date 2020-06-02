@@ -210,6 +210,11 @@
 			"type": "script",
 			"path": "script/models/railway.js",
 			"global": true
+		},
+		"city": {
+			"type": "script",
+			"path": "script/models/city.js",
+			"global": true
 		}
 	},
 	"moduleMainScripts": {

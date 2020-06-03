@@ -1,13 +1,16 @@
 import { Scene, ServiceAdapter } from "../adapters/adapter";
 
+import Game from "../models/game";
 import Team from "../models/team";
+import { createRailwayPanel } from "../entities/railway_viewer";
 import { find } from "@yasshi2525/rushmini";
 
 export type CreateGameSceneOption<T, C> = {
   isMulti: boolean;
   isAdmin: boolean;
   selfId: string;
-  team: Team;
+  myTeam: Team;
+  game: Game<T, C>;
   adapter: ServiceAdapter<T, C>;
   reset: () => void;
   end: () => void;
@@ -21,7 +24,7 @@ export const createGameScene = <T, C>(
     scene.append(
       opts.adapter.createText({
         scene,
-        text: find(opts.team.members, (p) => p.name == opts.selfId)
+        text: find(opts.myTeam.members, (p) => p.name == opts.selfId)
           ? "ゲーム中"
           : "観戦中",
         fontSize: 50,
@@ -29,6 +32,7 @@ export const createGameScene = <T, C>(
         y: 100,
       })
     );
+    scene.append(createRailwayPanel({ scene, adapter: opts.adapter }));
     if (opts.isMulti) {
       if (opts.isAdmin) {
         scene.append(
@@ -76,6 +80,8 @@ export const createGameScene = <T, C>(
       button.pointUp.add(() => opts.reset());
       scene.append(button);
     }
+    opts.game.initCity();
+    opts.game.teams.forEach((team) => team.railway.prepare());
   });
   return scene;
 };

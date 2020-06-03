@@ -1,8 +1,10 @@
 import {
+  EventType,
   Point,
   Steppable,
   distancePoint,
   find,
+  modelListener,
   ticker,
 } from "@yasshi2525/rushmini";
 
@@ -13,6 +15,7 @@ type FindSparseLocOption = {
   size: number;
   cx: number;
   cy: number;
+  marginTop: number;
   sparse: number;
   rand: () => number;
   others: Point[];
@@ -25,7 +28,7 @@ const findSparseLoc = (opts: FindSparseLocOption) => {
   do {
     pos = new Point(
       (opts.cx + opts.rand()) * opts.size,
-      (opts.cy + opts.rand()) * opts.size
+      opts.marginTop + (opts.cy + opts.rand()) * opts.size
     );
     count++;
   } while (
@@ -33,12 +36,13 @@ const findSparseLoc = (opts: FindSparseLocOption) => {
     count < opts.maxTry
   );
   // eslint-disable-next-line no-console
-  console.warn("could not find sparse point");
+  if (count === opts.maxTry) console.warn("could not find sparse point");
   return pos;
 };
 
 type CreateSparseLocOption = {
   cx: number;
+  marginTop: number;
   size: number;
   sparse: number;
   rand: () => number;
@@ -56,6 +60,7 @@ const toSparseLoc = (opts: CreateSparseLocOption) => {
     user: findSparseLoc({
       cx: opts.cx,
       cy: 1,
+      marginTop: opts.marginTop,
       sparse: opts.sparse,
       rand: opts.rand,
       maxTry: opts.maxTry,
@@ -65,6 +70,7 @@ const toSparseLoc = (opts: CreateSparseLocOption) => {
     admin: findSparseLoc({
       cx: opts.cx,
       cy: 0,
+      marginTop: opts.marginTop,
       sparse: opts.sparse,
       rand: opts.rand,
       maxTry: opts.maxTry,
@@ -83,10 +89,11 @@ export type CreateCityOption = {
 class City implements Steppable {
   public static CHUNK_SIZE = 150;
   public static LENGTH = 4;
+  public static MARGIN_TOP = 50;
   /**
    * 建物は最低この距離間をおいて建設する
    */
-  public static SPARSE = 100;
+  public static SPARSE = 50;
   public static INIT_PER_TEAM = 2;
   public static MAX_PER_TEAM = 6;
   public static SPAWN_INTERVAL = 15;
@@ -102,10 +109,11 @@ class City implements Steppable {
 
   constructor(opts: CreateCityOption) {
     for (let i = 0; i < City.MAX_PER_TEAM; i++) {
-      const cx = Math.floor(opts.rand() * City.LENGTH);
+      const cx = i === 0 ? 0 : 1 + Math.floor(opts.rand() * (City.LENGTH - 1));
       this.preserves.push(
         toSparseLoc({
           cx,
+          marginTop: City.MARGIN_TOP,
           others: this.preserves,
           maxTry: City.MAX_TRY,
           rand: opts.rand,
@@ -123,6 +131,8 @@ class City implements Steppable {
       );
     }
     this.remainFrame = Math.floor(City.SPAWN_INTERVAL * ticker.fps());
+
+    modelListener.fire(EventType.CREATED);
   }
 
   _step(): void {
@@ -134,6 +144,7 @@ class City implements Steppable {
       );
       this.remainFrame += Math.floor(City.SPAWN_INTERVAL * ticker.fps());
     }
+    modelListener.fire(EventType.CREATED);
   }
 }
 

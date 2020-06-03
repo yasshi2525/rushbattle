@@ -7,6 +7,7 @@ import { PlayManager, RunnerManager, RunnerV2 } from "@akashic/headless-driver";
 import AkashicAdapter from "adapters/akashic";
 import AkashicObject2D from "adapters/akashic_object2D";
 import Game from "models/game";
+import { XorshiftRandomGenerator } from "@akashic/akashic-engine";
 import { resolve } from "path";
 
 declare const rootDir: string;
@@ -71,7 +72,15 @@ class NonAssetAkashicAdapter extends AkashicAdapter {
   }
 }
 
-export type CreateGameOption = { game: g.Game };
+export type CreateGameOption = { game: g.Game; fps?: number };
+const FPS = 30;
+const random = new XorshiftRandomGenerator(0);
 
 export const createGame = (opts: CreateGameOption): Game<g.Scene, g.E> =>
-  new Game({ adapter: new NonAssetAkashicAdapter({ game: opts.game }) });
+  new Game({
+    adapter: new NonAssetAkashicAdapter({ game: opts.game }),
+    fps: opts.fps ?? FPS,
+    width: 816,
+    height: 624,
+    rand: (): number => random.generate(),
+  });

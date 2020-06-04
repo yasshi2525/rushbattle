@@ -24,6 +24,7 @@ class Game<T, C> {
   public readonly resolver: Resolver;
   public readonly width: number;
   public readonly height: number;
+  public readonly fps: number;
   public readonly rand: () => number;
   public readonly teams: Team[] = [];
   public city: City;
@@ -36,7 +37,8 @@ class Game<T, C> {
 
     this.width = opts.width;
     this.height = opts.height;
-    this.rand = opts.rand;
+    this.rand = opts.rand ?? Math.random;
+    this.fps = opts.fps;
     ticker.init(opts.fps, Game.TIME);
 
     modelListener
@@ -55,7 +57,7 @@ class Game<T, C> {
     this.city = new City({
       width: this.width,
       height: this.height,
-      rand: this.rand ?? Math.random,
+      rand: this.rand,
     });
   }
 

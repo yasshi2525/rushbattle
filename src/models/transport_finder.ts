@@ -96,7 +96,7 @@ class TransportFinder implements Steppable {
     return !this.isWaiting && this.currentFinderIdx === this.finders.length;
   }
 
-  protected reset(): void {
+  public reset(): void {
     this.currentFinderIdx = 0;
     this.currentRailLineIdx = 0;
     this.currentDeptTaskIdx = 0;
@@ -127,7 +127,7 @@ class TransportFinder implements Steppable {
   }
 
   protected onDeletedPlatform(p: Platform): void {
-    this.finders.forEach((f) => f.unnode(p));
+    this.finders.forEach((f) => f.unnode(p, true));
     remove(this.finders, (f) => f.goal.origin === p);
     remove(this.ps, p);
     this.reset();
@@ -138,13 +138,13 @@ class TransportFinder implements Steppable {
   }
 
   protected onDeletedDeptTask(lt: DeptTask): void {
-    this.finders.forEach((f) => f.unnode(lt));
+    this.finders.forEach((f) => f.unnode(lt, true));
     remove(this.lts, lt);
     this.reset();
   }
 
   protected onDeletedTrain(t: Train): void {
-    this.finders.forEach((f) => f.unnode(t));
+    this.finders.forEach((f) => f.unnode(t, true));
     remove(this.ts, t);
   }
 

@@ -123,7 +123,8 @@ class City implements Steppable {
       );
     }
     this.c = new Company(1, opts.width, opts.height / 2);
-    this.rangeRand = (min: number, max: number) => min + opts.rand() * max;
+    this.rangeRand = (min: number, max: number) =>
+      min + opts.rand() * (max - min);
     for (let i = 0; i < City.INIT_PER_TEAM; i++) {
       const posSet = this.preserves.shift();
       [posSet.user, posSet.admin].forEach(

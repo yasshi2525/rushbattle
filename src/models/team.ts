@@ -11,13 +11,15 @@ class Team {
   public static COUNT = 1;
   public readonly name: string;
   public readonly members: Player[] = [];
+  public readonly isAdmin: boolean;
   public readonly railway: Railway;
   protected readonly _id: number;
 
   constructor(opts: TeamOption) {
     this.name = opts.name;
     this._id = Team.COUNT++;
-    this.railway = new Railway({ isAdmin: !!opts.isAdmin });
+    this.isAdmin = opts.isAdmin ?? false;
+    this.railway = new Railway({ isAdmin: this.isAdmin });
     modelListener.add(EventType.CREATED, this);
   }
 

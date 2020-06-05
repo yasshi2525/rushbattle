@@ -1,4 +1,9 @@
-import { Platform, RailLine as RailLineOrg } from "@yasshi2525/rushmini";
+import {
+  EventType,
+  Platform,
+  RailLine as RailLineOrg,
+  modelListener,
+} from "@yasshi2525/rushmini";
 
 import DeptTask from "./dept_task";
 import { Reflectable } from "./resolver";
@@ -18,6 +23,10 @@ class RailLine extends RailLineOrg implements Reflectable {
 
   public _start(platform: Platform): void {
     this.top = new DeptTask(this, platform);
+  }
+
+  public _remove(): void {
+    modelListener.add(EventType.DELETED, this);
   }
 }
 

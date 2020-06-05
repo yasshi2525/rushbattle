@@ -15,10 +15,21 @@ import { createTitleScene } from "./scenes/title_scene";
 
 declare const window: RPGAtsumaruWindow;
 
-export const createAkashicGame = (): Game<g.Scene, g.E> => {
+export type CreateAkashicGameOption = { rand: () => number };
+
+export const createAkashicGame = (
+  opts: CreateAkashicGameOption
+): Game<g.Scene, g.E> => {
   const adapter = new AkashicAdapter({ game: g.game });
+
   g.game.vars.gameState = { score: 0 };
-  return new Game({ adapter });
+  return new Game({
+    adapter,
+    fps: g.game.fps,
+    width: g.game.width,
+    height: g.game.height,
+    rand: opts.rand,
+  });
 };
 
 export const prepareGame = <T, C>(
@@ -27,7 +38,7 @@ export const prepareGame = <T, C>(
   admin: Team;
   user: Team;
 } => {
-  const admin = game.createTeam("admin");
+  const admin = game.createTeam("admin", true);
   const user = game.createTeam("user");
   return { admin, user };
 };
@@ -41,6 +52,7 @@ export type CreateSceneHandlerOption<T, C> = {
   setAdmin: (v: boolean) => void;
   admin: Team;
   user: Team;
+  rand: () => number;
 };
 
 export const createSceneHandler = <T, C>(
@@ -73,8 +85,9 @@ export const createSceneHandler = <T, C>(
   sceneHandler.put(
     SceneType.GAME,
     createGameScene({
+      game: opts.game,
       adapter: opts.game.adapter,
-      team: opts.isAdmin ? opts.admin : opts.user,
+      myTeam: opts.isAdmin ? opts.admin : opts.user,
       selfId: opts.selfId,
       isMulti: opts.isMulti,
       isAdmin: opts.isAdmin,
@@ -99,7 +112,7 @@ export const createSceneHandler = <T, C>(
   );
   sceneHandler.register(SceneEvent.REPLAY, () => {
     opts.game.destroy();
-    const game = createAkashicGame();
+    const game = createAkashicGame({ rand: opts.rand });
     const { admin, user } = prepareGame(game);
     let isAdmin = false;
     const handler = createSceneHandler({
@@ -111,6 +124,7 @@ export const createSceneHandler = <T, C>(
       setAdmin: (v) => (isAdmin = v),
       selfId: opts.selfId,
       my: opts.my,
+      rand: opts.rand,
     });
     game.adapter.pushScene(handler.scenes[SceneType.TITLE]);
   });
@@ -134,7 +148,7 @@ export const createSceneHandler = <T, C>(
 };
 
 export function main(param: GameMainParameterObject): void {
-  const game = createAkashicGame();
+  const game = createAkashicGame({ rand: () => param.random.generate() });
   const { admin, user } = prepareGame(game);
   const selfId = `${g.game.selfId}`;
 
@@ -157,6 +171,7 @@ export function main(param: GameMainParameterObject): void {
           selfId,
           user,
           admin,
+          rand: () => param.random.generate(),
         });
         game.adapter.pushScene(handler.scenes[SceneType.TITLE]);
       }

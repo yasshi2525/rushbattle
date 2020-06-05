@@ -10,7 +10,7 @@ export type CreateRailwayOption = { isAdmin: boolean };
  */
 class Railway implements Reflectable {
   public static COUNT = 1;
-  protected readonly action: ActionProxy;
+  public readonly action: ActionProxy;
   protected readonly _id: number;
   public readonly isAdmin: boolean;
 
@@ -37,6 +37,7 @@ class Railway implements Reflectable {
 
   public prepare(): void {
     // start
+    this.action.createLine();
     const start = this.isAdmin ? Railway.ADMIN_START : Railway.USER_START;
     this.action.startRail(start.x, start.y);
     this.action.buildStation();

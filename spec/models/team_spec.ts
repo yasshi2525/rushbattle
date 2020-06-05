@@ -19,6 +19,7 @@ describe("team", () => {
     expect(team).not.toBeUndefined();
     expect(team.id).toEqual(1);
     expect(team.name).toEqual("test");
+    expect(team.isAdmin).toBeFalsy();
     expect(team.railway).not.toBeUndefined();
     expect(team.railway.isAdmin).toBeFalsy();
     expect(game.teams.length).toEqual(1);
@@ -30,6 +31,7 @@ describe("team", () => {
   it("create as admin", () => {
     const team = game.createTeam("admin", true);
     expect(team.id).toEqual(1);
+    expect(team.isAdmin).toBeTruthy();
     expect(team.railway.isAdmin).toBeTruthy();
   });
 

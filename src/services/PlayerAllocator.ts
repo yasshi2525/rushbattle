@@ -30,6 +30,15 @@ class PlayerAllocator {
     if (!this.isEnough) this.shuffle;
   }
 
+  public next(n: number): Player[] {
+    const arr = this.list.slice();
+    const next = [];
+    for (let i = 0; i < n; i++) {
+      next.push(arr.shift());
+      return next;
+    }
+  }
+
   private isEnough(): boolean {
     return this.list.length > this.displayNumber;
   }

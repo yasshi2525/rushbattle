@@ -36,7 +36,6 @@ describe("player_allocator", () => {
   it("ゲーム開始直前に、4人分のプレイ順番が決まっている", () => {
     // 注: 先頭の人がプレイ担当者
     const allocator = new PlayerAllocator();
-    const ps: Player[] = [];
     for (let i = 0; i < 4; i++) {
       allocator.join(new Player({ name: `test${i}`, team }));
     }
@@ -51,7 +50,11 @@ describe("player_allocator", () => {
 
   it("参加者が1人の場合、プレイ順4枠がすべてその人になっている", () => {
     const allocator = new PlayerAllocator();
-    allocator.join(new Player({ name: "yasshi", team }));
+    const player = new Player({ name: "yasshi", team });
+    allocator.join(player);
+    allocator.shuffle();
+    const expectArray = [player, player, player, player];
+    expect(allocator.next(4)).toEqual(expectArray);
   });
 
   it("参加者が2人の場合、プレイ順4枠が交互になっている", () => {});

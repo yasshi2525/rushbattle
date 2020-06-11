@@ -62,8 +62,13 @@ describe("player_allocator", () => {
   it("参加者が4人の場合、プレイ順4枠の中で全員が登場する", () => {});
 
   it("順送りするとプレイ順が繰り上がる", () => {
-    //順送り
+    const allocator = new PlayerAllocator();
+    for (let i = 0; i < 5; i++) {
+      allocator.join(new Player({ name: `player${i}`, team }));
+    }
+    const firstPlayer = allocator.top();
     allocator.shift();
+    expect(allocator.top()).not.toEqual(firstPlayer);
   });
 
   it("参加者が8人の場合、8人分順送りすると全員が2回ずつ登場する", () => {});

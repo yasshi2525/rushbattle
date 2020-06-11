@@ -33,6 +33,10 @@ class PlayerAllocator {
     return this.list.slice(0, n);
   }
 
+  public shift(): void {
+    this.list.shift();
+  }
+
   private isEnough(): boolean {
     return this.list.length > this.displayNumber;
   }

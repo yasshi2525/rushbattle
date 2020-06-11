@@ -14,7 +14,7 @@ class PlayerAllocator {
 
   public shuffle(): void {
     const max = this.queue.length;
-    while (this.list.length < this.displayNumber) {
+    while (!this.isEnough) {
       const arr = this.queue.slice();
       while (arr.length > 0) {
         const target = arr.splice(Math.floor(Math.random() * max), 1);
@@ -27,6 +27,11 @@ class PlayerAllocator {
     if (this.list.length === 0) return undefined;
 
     this.list.shift();
+    if (!this.isEnough) this.shuffle;
+  }
+
+  private isEnough(): boolean {
+    return this.list.length > this.displayNumber;
   }
 }
 

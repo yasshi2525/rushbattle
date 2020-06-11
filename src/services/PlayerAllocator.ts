@@ -35,8 +35,8 @@ class PlayerAllocator {
     const next = [];
     for (let i = 0; i < n; i++) {
       next.push(arr.shift());
-      return next;
     }
+    return next;
   }
 
   private isEnough(): boolean {

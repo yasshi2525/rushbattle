@@ -1,7 +1,7 @@
 import Player from "../models/player";
 
 /**
- * 常に4人以上のプレイ順を決定する
+ * プレイヤーの順番を決定する
  */
 class PlayerAllocator {
   public readonly queue: Player[] = [];
@@ -14,7 +14,7 @@ class PlayerAllocator {
 
   public shuffle(): void {
     const max = this.queue.length;
-    while (!this.isEnough()) {
+    while (this.shouldShuffle()) {
       const arr = this.queue.slice();
       while (arr.length > 0) {
         const target = arr.splice(Math.floor(Math.random() * max), 1);
@@ -37,8 +37,8 @@ class PlayerAllocator {
     this.list.shift();
   }
 
-  private isEnough(): boolean {
-    return this.list.length > this.displayNumber;
+  public shouldShuffle(): boolean {
+    return this.list.length < this.displayNumber;
   }
 }
 

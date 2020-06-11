@@ -57,7 +57,14 @@ describe("player_allocator", () => {
     expect(allocator.next(4)).toEqual(expectArray);
   });
 
-  it("参加者が2人の場合、プレイ順4枠が交互になっている", () => {});
+  it("参加者が2人の場合、プレイ順4枠が交互になっている", () => {
+    const allocator = new PlayerAllocator();
+    const player1 = new Player({ name: "maeshi", team });
+    const player2 = new Player({ name: "yukichi", team });
+    allocator.join(player1);
+    allocator.join(player2);
+    allocator.shuffle();
+  });
 
   it("参加者が4人の場合、プレイ順4枠の中で全員が登場する", () => {});
 

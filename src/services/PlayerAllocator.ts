@@ -26,17 +26,11 @@ class PlayerAllocator {
   public top(): Player {
     if (this.list.length === 0) return undefined;
 
-    this.list.shift();
-    if (!this.isEnough()) this.shuffle();
+    return this.list.slice(0, 1).shift();
   }
 
   public next(n: number): Player[] {
-    const arr = this.list.slice();
-    const next = [];
-    for (let i = 0; i < n; i++) {
-      next.push(arr.shift());
-    }
-    return next;
+    return this.list.slice(0, n);
   }
 
   private isEnough(): boolean {

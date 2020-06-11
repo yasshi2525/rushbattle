@@ -66,9 +66,10 @@ describe("player_allocator", () => {
     for (let i = 0; i < 5; i++) {
       allocator.join(new Player({ name: `player${i}`, team }));
     }
-    const firstPlayer = allocator.top();
+    const firstList = allocator.next(5);
+    const expectList = firstList.shift();
     allocator.shift();
-    expect(allocator.top()).not.toEqual(firstPlayer);
+    expect(allocator.next(4)).toEqual(expectList);
   });
 
   it("参加者が8人の場合、8人分順送りすると全員が2回ずつ登場する", () => {});

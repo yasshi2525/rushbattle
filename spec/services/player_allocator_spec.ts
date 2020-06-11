@@ -1,5 +1,6 @@
 import Game from "models/game";
 import Player from "models/player";
+import PlayerAllocator from "services/PlayerAllocator";
 import Team from "models/team";
 import { createGame } from "../_helpers/game";
 

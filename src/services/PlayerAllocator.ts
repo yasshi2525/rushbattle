@@ -12,9 +12,6 @@ class PlayerAllocator {
     this.queue.push(player);
   }
 
-  /**
-   *
-   */
   public shuffle(): void {
     const max = this.queue.length;
     while (this.list.length < this.displayNumber) {
@@ -24,6 +21,12 @@ class PlayerAllocator {
         this.list.push(target.shift());
       }
     }
+  }
+
+  public top(): Player {
+    if (this.list.length === 0) return undefined;
+
+    this.list.shift();
   }
 }
 

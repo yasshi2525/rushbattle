@@ -74,7 +74,7 @@ describe("player_allocator", () => {
       allocator.join(new Player({ name: `player${i}`, team }));
     }
     const firstList = allocator.next(5);
-    const expectList = firstList.shift();
+    const expectList = firstList.slice(1, 4);
     allocator.shift();
     expect(allocator.next(4)).toEqual(expectList);
   });

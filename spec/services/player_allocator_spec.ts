@@ -1,8 +1,8 @@
-import Game from "models/game";
+import { Game, createGame } from "../_helpers/game";
+
 import Player from "models/player";
 import PlayerAllocator from "services/PlayerAllocator";
 import Team from "models/team";
-import { createGame } from "../_helpers/game";
 
 describe("player_allocator", () => {
   let game: Game;

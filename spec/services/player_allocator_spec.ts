@@ -105,5 +105,5 @@ describe("player_allocator", () => {
     expect(allocator.next(4)).toEqual(expectList);
   });
 
-  it("参加者が8人の場合、8人分順送りすると全員が2回ずつ登場する", () => {});
+  it("参加者が4人の場合、8人分順送りすると全員が2回ずつ登場する", () => {});
 });

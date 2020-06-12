@@ -77,7 +77,22 @@ describe("player_allocator", () => {
     expect(thirdPlayer).not.toEqual(fourthPlayer);
   });
 
-  it("参加者が4人の場合、プレイ順4枠の中で全員が登場する", () => {});
+  it("参加者が4人の場合、プレイ順4枠の中で全員が登場する", () => {
+    const allocator = new PlayerAllocator();
+    const players = [];
+    for (let i = 0; i < 4; i++) {
+      const player = new Player({ name: `test${i}`, team });
+      allocator.join(player);
+      players.push(player);
+    }
+
+    allocator.shuffle();
+
+    for (let n = 0; n < 4; n++) {
+      expect(players.indexOf(allocator.top())).not.toEqual(-1);
+      allocator.shift();
+    }
+  });
 
   it("順送りするとプレイ順が繰り上がる", () => {
     const allocator = new PlayerAllocator();

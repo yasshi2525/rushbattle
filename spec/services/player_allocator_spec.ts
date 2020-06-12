@@ -105,5 +105,29 @@ describe("player_allocator", () => {
     expect(allocator.next(4)).toEqual(expectList);
   });
 
-  it("参加者が4人の場合、8人分順送りすると全員が2回ずつ登場する", () => {});
+  it("参加者が4人の場合、8人分順送りすると全員が2回ずつ登場する", () => {
+    const allocator = new PlayerAllocator();
+    for (let i = 0; i < 4; i++) {
+      const player = new Player({ name: `test${i}`, team });
+      allocator.join(player);
+    }
+
+    allocator.shuffle();
+
+    const players1: Player[] = [];
+    for (let i = 0; i < 4; i++) {
+      expect(players1.indexOf(allocator.top())).toEqual(-1);
+      players1.push(allocator.top());
+      allocator.shift();
+    }
+
+    allocator.shuffle();
+
+    const players2: Player[] = [];
+    for (let i = 0; i < 4; i++) {
+      expect(players2.indexOf(allocator.top())).toEqual(-1);
+      players2.push(allocator.top());
+      allocator.shift();
+    }
+  });
 });

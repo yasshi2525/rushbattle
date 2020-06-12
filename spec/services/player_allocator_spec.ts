@@ -64,6 +64,17 @@ describe("player_allocator", () => {
     allocator.join(player1);
     allocator.join(player2);
     allocator.shuffle();
+
+    const firstPlayer = allocator.top();
+    allocator.shift();
+    const secondPlayer = allocator.top();
+    allocator.shift();
+    expect(firstPlayer).not.toEqual(secondPlayer);
+
+    const thirdPlayer = allocator.top();
+    allocator.shift();
+    const fourthPlayer = allocator.top();
+    expect(thirdPlayer).not.toEqual(fourthPlayer);
   });
 
   it("参加者が4人の場合、プレイ順4枠の中で全員が登場する", () => {});

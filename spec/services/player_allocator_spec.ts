@@ -79,17 +79,17 @@ describe("player_allocator", () => {
 
   it("参加者が4人の場合、プレイ順4枠の中で全員が登場する", () => {
     const allocator = new PlayerAllocator();
-    const players = [];
     for (let i = 0; i < 4; i++) {
       const player = new Player({ name: `test${i}`, team });
       allocator.join(player);
-      players.push(player);
     }
 
     allocator.shuffle();
 
+    const players: Player[] = [];
     for (let n = 0; n < 4; n++) {
-      expect(players.indexOf(allocator.top())).not.toEqual(-1);
+      expect(players.indexOf(allocator.top())).toEqual(-1);
+      players.push(allocator.top());
       allocator.shift();
     }
   });

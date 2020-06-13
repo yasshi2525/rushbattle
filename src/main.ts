@@ -152,31 +152,48 @@ export function main(param: GameMainParameterObject): void {
   const { admin, user } = prepareGame(game);
   const selfId = `${g.game.selfId}`;
 
-  // マルチモードか判定した後ゲームを始めるため、待機用シーンを設定
-  const initScene = game.adapter.createScene();
-  initScene.loaded.add(() => {
-    let waitFrame = 0;
-    initScene.update.add(() => {
-      if (param.firstJoinedPlayerId || waitFrame > 3) {
-        const isMulti = param.firstJoinedPlayerId !== undefined;
-        let isAdmin = selfId == param.firstJoinedPlayerId;
-        const a = admin.join(param.firstJoinedPlayerId);
-        const my = isAdmin ? a : undefined;
-        const handler = createSceneHandler({
-          game,
-          isMulti,
-          isAdmin,
-          setAdmin: (v) => (isAdmin = v),
-          my,
-          selfId,
-          user,
-          admin,
-          rand: () => param.random.generate(),
-        });
-        game.adapter.pushScene(handler.scenes[SceneType.TITLE]);
-      }
-      waitFrame++;
+  const isMulti = !param.isAtsumaru;
+  let isAdmin = false;
+  const setAdmin = (v: boolean) => (isAdmin = v);
+  const rand = () => param.random.generate();
+
+  if (!isMulti) {
+    const handler = createSceneHandler({
+      game,
+      isMulti,
+      isAdmin,
+      setAdmin,
+      my: undefined,
+      selfId,
+      user,
+      admin,
+      rand,
     });
-  });
-  game.adapter.pushScene(initScene);
+    game.adapter.pushScene(handler.scenes[SceneType.TITLE]);
+  } else {
+    // joinイベントの発火を待つため、待機用シーンを設定
+    const initScene = game.adapter.createScene();
+    initScene.loaded.add(() => {
+      initScene.update.add(() => {
+        if (param.firstJoinedPlayerId) {
+          isAdmin = selfId == param.firstJoinedPlayerId;
+          const a = admin.join(param.firstJoinedPlayerId);
+          const my = isAdmin ? a : undefined;
+          const handler = createSceneHandler({
+            game,
+            isMulti,
+            isAdmin,
+            setAdmin,
+            my,
+            selfId,
+            user,
+            admin,
+            rand,
+          });
+          game.adapter.pushScene(handler.scenes[SceneType.TITLE]);
+        }
+      });
+    });
+    game.adapter.pushScene(initScene);
+  }
 }

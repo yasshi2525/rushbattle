@@ -257,6 +257,16 @@
 			"width": 70,
 			"height": 70,
 			"path": "image/train_img.png"
+		},
+		"route_finder": {
+			"type": "script",
+			"path": "script/models/route_finder.js",
+			"global": true
+		},
+		"transport_finder": {
+			"type": "script",
+			"path": "script/models/transport_finder.js",
+			"global": true
 		}
 	},
 	"moduleMainScripts": {

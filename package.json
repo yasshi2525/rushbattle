@@ -7,7 +7,7 @@
     "build": "rimraf ./script ./tmp && tsc && akashic scan asset script",
     "update": "akashic scan asset && akashic scan globalScripts",
     "start": "akashic serve -s nicolive",
-    "local": "akashic-sandbox .",
+    "local": "akashic serve -s atsumaru",
     "export": "akashic export html --output ../rushbattle-latest.zip --atsumaru",
     "lint": "eslint src",
     "test": "jest"

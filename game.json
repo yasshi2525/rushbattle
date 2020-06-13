@@ -277,6 +277,8 @@
 	"globalScripts": [
 		"node_modules/@akashic/akashic-engine/index.js",
 		"node_modules/@akashic/akashic-engine/lib/main.node.js",
+		"node_modules/@yasshi2525/rushmini/lib/entities/advice_bar.js",
+		"node_modules/@yasshi2525/rushmini/lib/entities/advice_view.js",
 		"node_modules/@yasshi2525/rushmini/lib/entities/bonus.js",
 		"node_modules/@yasshi2525/rushmini/lib/entities/bonus_badge.js",
 		"node_modules/@yasshi2525/rushmini/lib/entities/bonus_branch.js",
@@ -319,6 +321,7 @@
 		"node_modules/@yasshi2525/rushmini/lib/entities/waiter.js",
 		"node_modules/@yasshi2525/rushmini/lib/index.js",
 		"node_modules/@yasshi2525/rushmini/lib/models/action.js",
+		"node_modules/@yasshi2525/rushmini/lib/models/advice.js",
 		"node_modules/@yasshi2525/rushmini/lib/models/city_resource.js",
 		"node_modules/@yasshi2525/rushmini/lib/models/company.js",
 		"node_modules/@yasshi2525/rushmini/lib/models/dept_task.js",

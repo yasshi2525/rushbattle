@@ -53,6 +53,6 @@
   },
   "dependencies": {
     "@akashic/akashic-engine": "^2.6.3",
-    "@yasshi2525/rushmini": "^1.6.0"
+    "@yasshi2525/rushmini": "^1.6.1"
   }
 }

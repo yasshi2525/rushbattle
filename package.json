@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/yasshi2525/rushbuttle#readme",
   "devDependencies": {
-    "@akashic/akashic-cli": "^1.13.29",
+    "@akashic/akashic-cli": "^2.1.2",
     "@akashic/akashic-sandbox": "^0.16.10",
     "@akashic/engine-files": "^2.1.40",
     "@akashic/game-driver": "^1.8.0",

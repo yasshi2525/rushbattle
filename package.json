@@ -31,7 +31,7 @@
     "@akashic/akashic-cli": "^1.13.29",
     "@akashic/akashic-sandbox": "^0.16.10",
     "@akashic/engine-files": "^2.1.40",
-    "@akashic/game-driver": "^1.8.0",
+    "@akashic/game-driver": "^2.0.3",
     "@akashic/headless-driver": "^1.1.16",
     "@types/jest": "^26.0.0",
     "@typescript-eslint/eslint-plugin": "^3.2.0",
